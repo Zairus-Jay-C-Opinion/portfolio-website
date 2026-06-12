@@ -71,15 +71,15 @@
             border-radius: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: theme('colors.border');
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: theme('colors.muted');
+            background: rgba(255, 255, 255, 0.2);
         }
         .custom-scrollbar {
             scrollbar-width: thin;
-            scrollbar-color: theme('colors.border') transparent;
+            scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
             padding-bottom: 8px;
         }
 
@@ -217,7 +217,7 @@
                                 01 · personal finance dashboard
                             </span>
                         </div>
-                        <p class="font-poppins text-sm text-muted leading-relaxed mb-4">
+                        <p class="font-poppins text-sm text-muted leading-relaxed mb-4 text-justify">
                             Live price tracking for investments. Interactive Recharts visualizations.
                             Serverless Vercel API routes proxy Finnhub market data — the API key
                             never touches the client. State managed with Zustand. PWA-capable
@@ -254,14 +254,14 @@
                                 02 · campus sustainability app · batangas state university
                             </span>
                         </div>
-                        <p class="font-poppins text-sm text-muted leading-relaxed">
+                        <p class="font-poppins text-sm text-muted leading-relaxed text-justify">
                             Eco-challenge platform for BatStateU students. Students submit photo
                             proof of green actions; Gemini Vision API verifies each photo server-side
                             and awards Verde Coins redeemable at campus vendors via QR code scan.
                             Competed against 1st–4th year BSCS and Engineering students; placed
                             top 8 of 16 teams.
                         </p>
-                        <p class="font-poppins text-xs text-muted italic mt-2 mb-4">
+                        <p class="font-poppins text-xs text-muted italic mt-2 mb-4 text-justify">
                             My role: backend developer — Firebase Firestore, Cloud Functions,
                             atomic coin transactions, real-time listeners, AI photo verification proxy.
                         </p>
@@ -296,13 +296,13 @@
                                 03 · python desktop application
                             </span>
                         </div>
-                        <p class="font-poppins text-sm text-muted leading-relaxed mb-4">
+                        <p class="font-poppins text-sm text-muted leading-relaxed mb-4 text-justify">
                             Desktop app for tracking and projecting academic grades. Supports
                             multiple subjects, weighted component scoring, and score projection
                             to hit a target grade. Password-hashed authentication, SQLite database,
                             modular file structure.
                         </p>
-                        <p class="font-poppins text-xs text-accent italic mb-4">
+                        <p class="font-poppins text-xs text-accent italic mb-4 text-justify">
                             Warning: The downloadable app is unsigned. Windows SmartScreen or browsers may flag it as unrecognized.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
