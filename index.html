@@ -185,17 +185,26 @@
                 <p class="text-sm font-poppins text-muted">Things I've shipped. Click through — they're live.</p>
             </div>
 
-            <div class="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
+            <div class="relative group/slider">
+                <!-- Left Arrow -->
+                <button id="prev-project" class="absolute -left-4 md:-left-6 top-1/2 -translate-y-1/2 z-10 bg-surface/90 backdrop-blur border border-border text-text p-3 rounded-full shadow-lg opacity-0 group-hover/slider:opacity-100 transition-opacity hover:border-accent hover:text-accent hidden md:flex items-center justify-center pointer-events-auto">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+
+                <!-- Scroll Container -->
+                <div id="projects-slider" class="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
                 <!-- Card 1 -->
                 <article class="scroll-reveal flex-shrink-0 w-[85vw] md:w-[450px] snap-center bg-surface border border-border border-l-2 border-l-accent p-6 md:p-8 hover:border-accent/40 hover:border-l-accent transition-colors duration-200 flex flex-col gap-5 group">
                     <div>
-                        <span class="font-mono text-xs text-muted mb-1 block">
-                            01 · personal finance dashboard
-                        </span>
-                        <div class="flex items-center gap-3 mb-3">
-                            <img src="fintrack-logo.png" alt="FinTrack Logo" class="w-12 h-12 rounded-lg object-cover">
-                            <h3 class="text-xl font-poppins font-medium text-text group-hover:text-accent transition-colors duration-200">FinTrack</h3>
-                            <span class="font-mono text-xs bg-accent/10 text-accent border border-accent/20 px-2 py-0.5 rounded-sm">LIVE</span>
+                        <div class="flex flex-col items-center mb-6">
+                            <img src="fintrack-logo.png" alt="FinTrack Logo" class="w-24 h-24 rounded-2xl object-cover mb-4 shadow-xl bg-white/5 border border-border/50">
+                            <div class="flex items-center justify-center gap-3 mb-2">
+                                <h3 class="text-2xl font-poppins font-bold text-text group-hover:text-accent transition-colors duration-200">FinTrack</h3>
+                                <span class="font-mono text-[10px] bg-accent/10 text-accent border border-accent/20 px-2 py-0.5 rounded-sm">LIVE</span>
+                            </div>
+                            <span class="font-mono text-xs text-muted text-center block">
+                                01 · personal finance dashboard
+                            </span>
                         </div>
                         <p class="font-poppins text-sm text-muted leading-relaxed mb-4">
                             Live price tracking for investments. Interactive Recharts visualizations.
@@ -225,13 +234,15 @@
                 <!-- Card 2 -->
                 <article class="scroll-reveal flex-shrink-0 w-[85vw] md:w-[450px] snap-center bg-surface border border-border border-l-2 border-l-accent p-6 md:p-8 hover:border-accent/40 hover:border-l-accent transition-colors duration-200 flex flex-col gap-5 group">
                     <div>
-                        <span class="font-mono text-xs text-muted mb-1 block">
-                            02 · campus sustainability app · batangas state university
-                        </span>
-                        <div class="flex items-center gap-3 mb-3">
-                            <img src="verde-logo.png" alt="Verde Logo" class="w-12 h-12 rounded-lg object-contain bg-white">
-                            <h3 class="text-xl font-poppins font-medium text-text group-hover:text-accent transition-colors duration-200">Verde</h3>
-                            <span class="font-mono text-xs text-muted border border-border px-2 py-0.5 rounded-sm whitespace-nowrap">HACKATHON · TOP 8</span>
+                        <div class="flex flex-col items-center mb-6">
+                            <img src="verde-logo.png" alt="Verde Logo" class="w-24 h-24 rounded-2xl object-contain bg-white mb-4 shadow-xl border border-border/50 p-1">
+                            <div class="flex flex-wrap items-center justify-center gap-3 mb-2">
+                                <h3 class="text-2xl font-poppins font-bold text-text group-hover:text-accent transition-colors duration-200">Verde</h3>
+                                <span class="font-mono text-[10px] text-muted border border-border px-2 py-0.5 rounded-sm whitespace-nowrap">HACKATHON · TOP 8</span>
+                            </div>
+                            <span class="font-mono text-xs text-muted text-center block">
+                                02 · campus sustainability app · batangas state university
+                            </span>
                         </div>
                         <p class="font-poppins text-sm text-muted leading-relaxed">
                             Eco-challenge platform for BatStateU students. Students submit photo
@@ -266,12 +277,14 @@
                 <!-- Card 3 -->
                 <article class="scroll-reveal flex-shrink-0 w-[85vw] md:w-[450px] snap-center bg-surface border border-border border-l-2 border-l-accent p-6 md:p-8 hover:border-accent/40 hover:border-l-accent transition-colors duration-200 flex flex-col gap-5 group">
                     <div>
-                        <span class="font-mono text-xs text-muted mb-1 block">
-                            03 · python desktop application
-                        </span>
-                        <div class="flex items-center gap-3 mb-3">
-                            <img src="grade-logo.jpg" alt="Grade Monitoring Logo" class="w-12 h-12 rounded-lg object-cover">
-                            <h3 class="text-xl font-poppins font-medium text-text group-hover:text-accent transition-colors duration-200">Grade Monitoring System</h3>
+                        <div class="flex flex-col items-center mb-6">
+                            <img src="grade-logo.jpg" alt="Grade Monitoring Logo" class="w-24 h-24 rounded-2xl object-cover mb-4 shadow-xl border border-border/50">
+                            <div class="flex items-center justify-center gap-3 mb-2">
+                                <h3 class="text-2xl font-poppins font-bold text-text group-hover:text-accent transition-colors duration-200">Grade Monitoring System</h3>
+                            </div>
+                            <span class="font-mono text-xs text-muted text-center block">
+                                03 · python desktop application
+                            </span>
                         </div>
                         <p class="font-poppins text-sm text-muted leading-relaxed mb-4">
                             Desktop app for tracking and projecting academic grades. Supports
@@ -296,6 +309,12 @@
                         <a href="https://github.com/Zairus-Jay-C-Opinion/DYNAMIC-GRADE-ESTIMATION-AND-ACADEMIC-PERFORMANCE-PROJECTION-DASHBOARD-SYSTEM" target="_blank" class="text-muted hover:text-text font-poppins text-sm min-h-[44px] flex items-center transition-colors">GitHub ↗</a>
                     </div>
                 </article>
+                </div>
+                
+                <!-- Right Arrow -->
+                <button id="next-project" class="absolute -right-4 md:-right-6 top-1/2 -translate-y-1/2 z-10 bg-surface/90 backdrop-blur border border-border text-text p-3 rounded-full shadow-lg opacity-0 group-hover/slider:opacity-100 transition-opacity hover:border-accent hover:text-accent hidden md:flex items-center justify-center pointer-events-auto">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
             </div>
         </section>
 
@@ -471,6 +490,21 @@
         document.querySelectorAll('.scroll-reveal').forEach(element => {
             revealObserver.observe(element);
         });
+
+        // Project Slider Navigation
+        const slider = document.getElementById('projects-slider');
+        const prevBtn = document.getElementById('prev-project');
+        const nextBtn = document.getElementById('next-project');
+
+        if (slider && prevBtn && nextBtn) {
+            const scrollAmount = 450 + 24; // Card width + gap
+            prevBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+            nextBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+        }
     </script>
 </body>
 </html>
