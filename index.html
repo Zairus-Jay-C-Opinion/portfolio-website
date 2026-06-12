@@ -63,12 +63,24 @@
             transform: translateY(0);
         }
 
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
         }
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: theme('colors.border');
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.muted');
+        }
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: theme('colors.border') transparent;
+            padding-bottom: 8px;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -192,7 +204,7 @@
                 </button>
 
                 <!-- Scroll Container -->
-                <div id="projects-slider" class="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
+                <div id="projects-slider" class="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory custom-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
                 <!-- Card 1 -->
                 <article class="scroll-reveal flex-shrink-0 w-[85vw] md:w-[450px] snap-center bg-surface border border-border border-l-2 border-l-accent p-6 md:p-8 hover:border-accent/40 hover:border-l-accent transition-colors duration-200 flex flex-col gap-5 group">
                     <div>
@@ -332,7 +344,7 @@
                 </button>
 
                 <!-- Scroll Container -->
-                <div id="edu-slider" class="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
+                <div id="edu-slider" class="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory custom-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
                     <!-- College -->
                     <article class="scroll-reveal flex-shrink-0 w-[85vw] md:w-[450px] snap-center bg-surface border border-border border-l-2 border-l-accent p-6 md:p-8 flex flex-col gap-3 group">
                         <div class="flex flex-col items-center mb-2">
