@@ -84,6 +84,20 @@
     }
     .nav-link:hover::after { width: 100%; }
 
+    /* Photo corner vignette */
+    .photo-fade::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 0% 0%,   rgba(255,255,255,0.92) 0%, transparent 32%),
+        radial-gradient(circle at 100% 0%,  rgba(255,255,255,0.92) 0%, transparent 32%),
+        radial-gradient(circle at 0% 100%,  rgba(255,255,255,0.92) 0%, transparent 32%),
+        radial-gradient(circle at 100% 100%,rgba(255,255,255,0.92) 0%, transparent 32%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -132,7 +146,7 @@
       <div class="grid md:grid-cols-[2fr_3fr] gap-8 md:gap-10 items-start">
 
         <!-- Text -->
-        <div>
+        <div class="md:pt-10">
           <h1 class="fade-up text-[1.75rem] md:text-[2.375rem] font-bold leading-[1.15] tracking-tight text-ink mb-5" style="animation-delay:0.06s">
             Zairus Opinion builds things that actually run.
           </h1>
@@ -153,7 +167,7 @@
 
         <!-- Photo -->
         <div class="fade-up order-first md:order-last" style="animation-delay:0s">
-          <div class="img-wrap max-w-[280px] mx-auto md:max-w-none md:mx-0 md:h-[480px]">
+          <div class="img-wrap photo-fade max-w-[280px] mx-auto md:max-w-none md:mx-0 md:h-[480px]">
             <img src="profile.png" alt="Zairus Opinion"
                  class="w-full h-auto md:h-full md:object-cover object-top block"
                  onload="this.closest('.img-wrap').classList.add('loaded')"
