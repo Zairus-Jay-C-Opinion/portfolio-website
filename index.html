@@ -117,16 +117,16 @@
 
 <body class="bg-white text-ink font-sans antialiased selection:bg-blue-100 selection:text-ink">
 
-  <!-- NAV -->
+  <!-- NAV — About · Skills · Work · Services · Contact -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-border">
     <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
       <span class="text-sm font-medium tracking-tight select-none">zairusopinion.</span>
       <div class="hidden md:flex items-center gap-8">
-        <a href="#projects" class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Work</a>
-        <a href="#estimate" class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Services</a>
-        <a href="#hero"     class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">About</a>
-        <a href="#skills"   class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Skills</a>
-        <a href="#contact"  class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Contact</a>
+        <a href="#hero"      class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">About</a>
+        <a href="#skills"    class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Skills</a>
+        <a href="#projects"  class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Work</a>
+        <a href="#services"  class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Services</a>
+        <a href="#contact"   class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Contact</a>
       </div>
       <button id="hamburger" class="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center text-muted" aria-label="Open menu">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -138,10 +138,10 @@
     </div>
     <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-white">
       <div class="max-w-5xl mx-auto px-6 py-3 flex flex-col">
-        <a href="#projects" class="text-sm text-muted hover:text-ink py-3 border-b border-border">Work</a>
-        <a href="#estimate" class="text-sm text-muted hover:text-ink py-3 border-b border-border">Services</a>
         <a href="#hero"     class="text-sm text-muted hover:text-ink py-3 border-b border-border">About</a>
         <a href="#skills"   class="text-sm text-muted hover:text-ink py-3 border-b border-border">Skills</a>
+        <a href="#projects" class="text-sm text-muted hover:text-ink py-3 border-b border-border">Work</a>
+        <a href="#services" class="text-sm text-muted hover:text-ink py-3 border-b border-border">Services</a>
         <a href="#contact"  class="text-sm text-muted hover:text-ink py-3">Contact</a>
       </div>
     </div>
@@ -234,9 +234,10 @@
       </div>
     </section>
 
-    <!-- ESTIMATOR -->
-    <section id="estimate" class="pb-16 max-w-5xl mx-auto px-6">
-      <div class="border-t border-border pt-12 mb-8">
+    <!-- SERVICES / ESTIMATOR -->
+    <!-- id="services" catches the nav link; id="estimate" catches the hero CTA -->
+    <section id="services" class="pb-16 max-w-5xl mx-auto px-6">
+      <div id="estimate" class="border-t border-border pt-12 mb-8">
         <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Project Estimator</h2>
         <p class="scroll-reveal text-sm text-muted">Get a rough cost range — configure your project below and the estimate updates live.</p>
       </div>
@@ -255,9 +256,9 @@
           <div>
             <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Complexity</label>
             <select id="est-complexity" class="form-input" onchange="calcEstimate()">
-              <option value="simple">Simple ×1</option>
-              <option value="standard" selected>Standard ×1.6</option>
-              <option value="complex">Complex ×2.4</option>
+              <option value="simple">Simple — single purpose, few moving parts ×1.0</option>
+              <option value="standard" selected>Standard — multiple features, one backend ×1.6</option>
+              <option value="complex">Complex — multi-role, integrations, real-time ×2.4</option>
             </select>
           </div>
           <div>
@@ -292,9 +293,9 @@
           <div>
             <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Timeline</label>
             <select id="est-timeline" class="form-input" onchange="calcEstimate()">
-              <option value="flexible">Flexible ×1</option>
-              <option value="standard" selected>Standard 2–4 weeks ×1.1</option>
-              <option value="rush">Rush &lt;2 weeks ×1.35</option>
+              <option value="flexible">Flexible ×1.0</option>
+              <option value="standard" selected>Standard (2–4 weeks) ×1.1</option>
+              <option value="rush">Rush (under 2 weeks) ×1.35</option>
             </select>
           </div>
         </div>
@@ -377,7 +378,7 @@
       </div>
       <div class="border-b border-border mb-0 flex overflow-x-auto">
         <button class="tab-btn active" data-tab="personal">Personal</button>
-        <button class="tab-btn" data-tab="commissioned">Commissioned</button>
+        <button class="tab-btn" data-tab="client-work">Client Work</button>
         <button class="tab-btn" data-tab="workflows">Workflows</button>
       </div>
 
@@ -396,10 +397,10 @@
                 <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">FinTrack — Personal finance dashboard PWA</h3>
                 <div class="flex sm:flex-col items-start sm:items-end gap-3 sm:gap-1 flex-shrink-0">
                   <a id="fintrack-demo" href="#" target="_blank" rel="noopener" class="text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap">Live demo</a>
-                  <a href="https://github.com/Zairus-Jay-C-Opinion/FinTrack" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
+                  <a href="https://github.com/Zairus-Jay-C-Opinion/fintrack" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
                 </div>
               </div>
-              <p class="text-sm text-muted leading-relaxed mb-3">Real-time stock and crypto tracking, portfolio management, interactive charts, and a serverless Finnhub API proxy.</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">Real-time stock and crypto tracking, portfolio management, interactive charts, and a serverless Finnhub API proxy — API key never touches the client.</p>
               <p class="text-xs text-subtle leading-relaxed">React, Vite, Tailwind, Zustand, Recharts, Framer Motion, Finnhub API, Capacitor, Vercel</p>
             </div>
           </div>
@@ -416,13 +417,13 @@
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
-                <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">TaskBill — AI-powered task and billing SaaS</h3>
+                <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">TaskBill — Task and invoicing SaaS</h3>
                 <div class="flex sm:flex-col items-start sm:items-end gap-3 sm:gap-1 flex-shrink-0">
                   <a id="taskbill-demo" href="#" target="_blank" rel="noopener" class="text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap">Live demo</a>
-                  <a href="https://github.com/Zairus-Jay-C-Opinion/TaskBill" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
+                  <a href="https://github.com/Zairus-Jay-C-Opinion/taskbill" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
                 </div>
               </div>
-              <p class="text-sm text-muted leading-relaxed mb-3">Task management, invoice generation, AI assistance, Stripe payments, transactional email, and rate limiting for freelancers.</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">Task management, invoice generation, Stripe payments, Supabase auth with RLS, AI assistance, push notifications, and transactional email for freelancers.</p>
               <p class="text-xs text-subtle leading-relaxed">React 19, Vite, Tailwind, Supabase, Stripe, Anthropic API, Resend, Upstash, Vercel</p>
             </div>
           </div>
@@ -438,12 +439,14 @@
             <div class="flex-1 min-w-0">
               <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
                 <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">Verde — Hackathon sustainability app</h3>
-                <div class="flex sm:flex-col items-start sm:items-end gap-3 sm:gap-1 flex-shrink-0">
-                  <a href="https://hackathon-technofusion.web.app" target="_blank" rel="noopener" class="text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap">Live demo</a>
-                  <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
+                <div class="flex sm:flex-col items-start sm:items-end gap-2 sm:gap-1 flex-shrink-0">
+                  <a href="https://hackathon-technofusion.web.app/student" target="_blank" rel="noopener" class="text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap">Student</a>
+                  <a href="https://hackathon-technofusion.web.app/vendor/1" target="_blank" rel="noopener" class="text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap">Vendor</a>
+                  <a href="https://hackathon-technofusion.web.app/admin" target="_blank" rel="noopener" class="text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap">Admin</a>
+                  <a href="https://github.com/Zairus-Jay-C-Opinion/Verde-draft" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
                 </div>
               </div>
-              <p class="text-sm text-muted leading-relaxed mb-3">Top 8 of 16 at TechnoFusion 2025. Backend: Gemini Vision photo verification, atomic coin rewards, QR redemption system.</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">Top 8 of 16 at TechnoFusion 2025. My role: backend — Firestore, Cloud Functions, atomic coin transactions, Gemini Vision photo-verification proxy, QR redemption system.</p>
               <p class="text-xs text-subtle leading-relaxed">Firebase Firestore, Cloud Functions, Gemini Vision API, React</p>
             </div>
           </div>
@@ -459,11 +462,12 @@
             <div class="flex-1 min-w-0">
               <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
                 <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">Grade Monitoring System — Python desktop app</h3>
-                <div class="flex sm:flex-col items-start sm:items-end gap-1 flex-shrink-0">
-                  <a href="https://github.com/Zairus-Jay-C-Opinion/Grade-Monitoring-System/releases" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
+                <div class="flex sm:flex-col items-start sm:items-end gap-3 sm:gap-1 flex-shrink-0">
+                  <a href="https://github.com/Zairus-Jay-C-Opinion/DYNAMIC-GRADE-ESTIMATION-AND-ACADEMIC-PERFORMANCE-PROJECTION-DASHBOARD-SYSTEM/releases/download/Dynamic_Grade_Monitoring_System_v2.0/GradeMonitor.exe" target="_blank" rel="noopener" class="text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap">Download</a>
+                  <a href="https://github.com/Zairus-Jay-C-Opinion/DYNAMIC-GRADE-ESTIMATION-AND-ACADEMIC-PERFORMANCE-PROJECTION-DASHBOARD-SYSTEM" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
                 </div>
               </div>
-              <p class="text-sm text-muted leading-relaxed mb-3">Grade tracking desktop app with password-hashed auth, SQLite storage, and OOP architecture.</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">Weighted component scoring, target-grade projection, password-hashed auth, and SQLite storage. OOP architecture throughout.</p>
               <p class="text-xs text-subtle leading-relaxed">Python, Tkinter, SQLite, bcrypt</p>
             </div>
           </div>
@@ -483,11 +487,16 @@
                   <a href="https://github.com/Zairus-Jay-C-Opinion/TechWize---Digital-Literacy-and-Cybersecurity" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
                 </div>
               </div>
-              <p class="text-sm text-muted leading-relaxed mb-3">Educational website covering digital literacy and cybersecurity fundamentals. No live deployment yet.</p>
-              <p class="text-xs text-subtle leading-relaxed">HTML, CSS, JavaScript</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">Multi-page educational site covering cyber threats, digital safety, and online practices. Not deployed yet — GitHub only for now.</p>
+              <p class="text-xs text-subtle leading-relaxed">HTML, CSS</p>
             </div>
           </div>
         </article>
+
+      </div>
+
+      <!-- CLIENT WORK -->
+      <div id="tab-client-work" class="tab-panel">
 
         <article class="project-row scroll-reveal group">
           <div class="py-7 flex gap-5 md:gap-8">
@@ -500,9 +509,10 @@
             <div class="flex-1 min-w-0">
               <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
                 <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">Nailong — Period Tracker App</h3>
+                <!-- TODO: add GitHub link once repo is moved to its own public repository -->
                 <span class="text-xs text-subtle italic flex-shrink-0">GitHub link coming soon</span>
               </div>
-              <p class="text-sm text-muted leading-relaxed mb-3">Expo/React Native period tracking app. GitHub link will be added once the codebase is moved to its own dedicated repository.</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">Built for a client who needed a personal health tracking tool. Cycle and symptom logging, predictions, and history view.</p>
               <p class="text-xs text-subtle leading-relaxed">Expo, React Native</p>
             </div>
           </div>
@@ -520,19 +530,14 @@
                 <h3 class="text-sm font-semibold text-ink">Telemetry Companion App</h3>
                 <span class="badge-wip">In Progress</span>
               </div>
-              <p class="text-sm text-muted leading-relaxed mb-3">iRacing telemetry companion — live session data, lap analysis, and setup tracking. Not yet pushed to GitHub.</p>
-              <p class="text-xs text-subtle">Stack TBD</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">iRacing telemetry and coaching app built for a sim racer. Real-time delta-to-PB HUD, post-session AI coaching via Gemini, tyre temperature advisor, and automatic setup file installation.</p>
+              <p class="text-xs text-subtle">Python / FastAPI backend, React dashboard, PyQt6 HUD overlay</p>
             </div>
           </div>
         </article>
 
-      </div>
+        <p class="text-xs text-subtle py-8 border-t border-border">More client work coming — check back as projects wrap up.</p>
 
-      <!-- COMMISSIONED -->
-      <div id="tab-commissioned" class="tab-panel">
-        <div class="py-16 text-center border border-dashed border-border rounded-xl mt-4">
-          <p class="text-sm text-muted">Commissioned project case studies will be added here as work is completed.</p>
-        </div>
       </div>
 
       <!-- WORKFLOWS -->
@@ -547,8 +552,8 @@
             </div>
             <div class="flex-1 min-w-0">
               <h3 class="text-sm font-semibold text-ink mb-2 group-hover:text-accent transition-colors duration-200">DM Lead-Response Automation</h3>
-              <p class="text-sm text-muted leading-relaxed mb-3">Built for an import business (NZ, anonymized). Automates Instagram and Facebook DM replies using Gemini for intent classification and response generation, routed through ManyChat and orchestrated by n8n.</p>
-              <p class="text-xs text-subtle leading-relaxed">n8n, ManyChat, Gemini API, Instagram Graph API, Facebook Messenger API</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">Built for an NZ-based import business. Gemini 2.5 Flash generates contextual responses to Instagram and Facebook DMs, routed through ManyChat Dynamic Content blocks, with a Firestore product catalog as the backend.</p>
+              <p class="text-xs text-subtle leading-relaxed">n8n, Gemini API, ManyChat, Firestore</p>
             </div>
           </div>
         </article>
@@ -564,22 +569,25 @@
             </div>
             <div class="flex-1 min-w-0">
               <h3 class="text-sm font-semibold text-ink mb-2 group-hover:text-accent transition-colors duration-200">Market Intelligence Reporting</h3>
-              <p class="text-sm text-muted leading-relaxed mb-3">Same client (NZ, anonymized). Automated competitor and market research pipeline: SerpAPI gathers data, n8n assembles and formats the report, delivered to Google Docs on a schedule.</p>
-              <p class="text-xs text-subtle leading-relaxed">n8n, SerpAPI, Google Docs API, Gemini API</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">Same anonymous client. Automated competitor and market research pipeline — SerpAPI queries assembled and formatted into a Google Docs report via n8n on a recurring schedule.</p>
+              <p class="text-xs text-subtle leading-relaxed">n8n, SerpAPI, Google Docs API</p>
             </div>
           </div>
         </article>
+
+        <p class="text-xs text-subtle py-8 border-t border-border">More automation case studies will be added as builds are completed.</p>
 
       </div>
     </section>
 
     <!-- TESTIMONIALS -->
-    <section class="pb-16 max-w-5xl mx-auto px-6">
+    <section id="testimonials" class="pb-16 max-w-5xl mx-auto px-6">
       <div class="border-t border-border pt-12 mb-6">
         <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink">Testimonials</h2>
       </div>
+      <!-- testimonials array — add objects here: { quote, name, role, date } -->
       <div class="scroll-reveal py-14 text-center border border-dashed border-border rounded-xl">
-        <p class="text-sm text-muted">Testimonials are on their way — check back as commissioned projects wrap up.</p>
+        <p class="text-sm text-muted">Testimonials are on their way — coming as client projects wrap up.</p>
       </div>
     </section>
 
@@ -630,7 +638,7 @@
             </div>
             <div class="scroll-reveal">
               <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">AI Tools</p>
-              <p class="text-sm text-muted leading-relaxed">Claude, Claude Code, Gemini, Cursor, GitHub Copilot</p>
+              <p class="text-sm text-muted leading-relaxed">Claude, Claude Code, Gemini, Cursor</p>
             </div>
             <div class="scroll-reveal">
               <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Tools</p>
@@ -646,50 +654,37 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- CONTACT — links only, no form -->
     <section id="contact" class="pb-28 max-w-5xl mx-auto px-6">
       <div class="border-t border-border pt-12 grid md:grid-cols-2 gap-12 items-start">
         <div>
           <h2 class="scroll-reveal text-3xl md:text-4xl font-bold tracking-tight text-ink leading-tight mb-4">
             Open to part-time remote roles.
           </h2>
-          <p class="scroll-reveal text-sm text-muted leading-relaxed mb-8">
+          <p class="scroll-reveal text-sm text-muted leading-relaxed">
             Available for freelance work — full-stack apps, AI-integrated products, and automation systems that replace manual busywork.
           </p>
-          <form id="contact-form" class="scroll-reveal space-y-4" onsubmit="submitContactForm(event)">
-            <div class="hp-field" aria-hidden="true">
-              <input name="_hp_contact" type="text" tabindex="-1" autocomplete="off">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Name</label>
-              <input name="name" type="text" class="form-input" placeholder="Your name" required autocomplete="name">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Email</label>
-              <input name="email" type="email" class="form-input" placeholder="you@example.com" required autocomplete="email">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Message</label>
-              <textarea name="message" class="form-input" rows="4" placeholder="Tell me about your project" required></textarea>
-            </div>
-            <p id="contact-success" class="hidden text-xs text-green-600">Message sent! I'll get back to you soon.</p>
-            <button type="submit"
-                    class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
-              Send message
-            </button>
-          </form>
         </div>
 
         <div class="scroll-reveal flex flex-col gap-0.5 md:items-end">
           <a href="mailto:opnzrs@gmail.com"
-             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">Email</a>
-          <a href="tel:+63"
-             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">Phone</a>
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
+            opnzrs@gmail.com
+          </a>
+          <a href="tel:+639989273268"
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
+            +63 998 927 3268
+          </a>
           <a href="https://www.onlinejobs.ph" target="_blank" rel="noopener"
-             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">OnlineJobs.ph profile</a>
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
+            OnlineJobs.ph profile
+          </a>
           <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener"
-             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">GitHub profile</a>
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
+            GitHub profile
+          </a>
           <!-- Social links — shown by JS once config values are set -->
+          <!-- TODO: fill in social URLs -->
           <a id="social-instagram" href="#" target="_blank" rel="noopener"
              class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center md:justify-end">Instagram</a>
           <a id="social-facebook" href="#" target="_blank" rel="noopener"
@@ -711,20 +706,16 @@
 
   <script>
     // ─── CONFIG ──────────────────────────────────────────────────────────────────
-    // TODO: Fill in once n8n inquiry workflow is live
-    const INQUIRY_WEBHOOK_URL = '';
-    // TODO: Update to custom subdomains once DNS/Vercel is configured
-    const FINTRACK_URL  = 'https://fintrack-one-sigma.vercel.app'; // TODO: fintrack.zrsdev.com
-    const TASKBILL_URL  = 'https://taskbill.vercel.app';           // TODO: taskbill.zrsdev.com
-    // TODO: Fill in social URLs when accounts are ready
-    const SOCIAL_INSTAGRAM = '';
-    const SOCIAL_FACEBOOK  = '';
-    const SOCIAL_X         = '';
-    // TODO: Edit to update available call slots (PH time, GMT+8)
+    const INQUIRY_WEBHOOK_URL = ""; // TODO: n8n webhook URL once live
+    const SOCIAL_INSTAGRAM    = ""; // TODO: Instagram profile URL
+    const SOCIAL_FACEBOOK     = ""; // TODO: Facebook page URL
+    const SOCIAL_X            = ""; // TODO: X/Twitter profile URL
+    const FINTRACK_URL  = "https://fintrack-one-sigma.vercel.app"; // TODO: swap to https://fintrack.zrsdev.com once subdomain is live
+    const TASKBILL_URL  = "https://taskbill.vercel.app";           // TODO: swap to https://taskbill.zrsdev.com once subdomain is live
+    // TODO: Edit this array to update available call slots (PH time, GMT+8)
     const AVAILABILITY_SLOTS = [
-      'Mon 7–9 PM', 'Tue 7–9 PM', 'Wed 7–9 PM',
-      'Thu 7–9 PM', 'Fri 7–9 PM',
-      'Sat 10 AM–12 PM', 'Sat 2–4 PM', 'Sun 2–4 PM'
+      "Mon 7–9 PM", "Tue 7–9 PM", "Wed 7–9 PM", "Thu 7–9 PM", "Fri 7–9 PM",
+      "Sat 10AM–1PM", "Sat 2–5PM", "Sun 10AM–1PM", "Sun 2–5PM"
     ];
     // ─────────────────────────────────────────────────────────────────────────────
 
@@ -763,15 +754,15 @@
     });
 
     // ─── ESTIMATOR ───────────────────────────────────────────────────────────────
-    const BASE   = { landing: 150, webapp: 400, automation: 250, ai: 350 };
-    const CMULT  = { simple: 1, standard: 1.6, complex: 2.4 };
-    const TMULT  = { flexible: 1, standard: 1.1, rush: 1.35 };
-    const FCOST  = { auth: 50, payments: 80, database: 60, admin: 90, api: 50, realtime: 70 };
+    const BASE  = { landing: 150, webapp: 400, automation: 250, ai: 350 };
+    const CMULT = { simple: 1, standard: 1.6, complex: 2.4 };
+    const TMULT = { flexible: 1, standard: 1.1, rush: 1.35 };
+    const FCOST = { auth: 50, payments: 80, database: 60, admin: 90, api: 50, realtime: 70 };
 
     function calcEstimate() {
-      const base  = BASE[document.getElementById('est-type').value]       || 150;
-      const cm    = CMULT[document.getElementById('est-complexity').value] || 1;
-      const tm    = TMULT[document.getElementById('est-timeline').value]   || 1;
+      const base = BASE[document.getElementById('est-type').value]       || 150;
+      const cm   = CMULT[document.getElementById('est-complexity').value] || 1;
+      const tm   = TMULT[document.getElementById('est-timeline').value]   || 1;
       let fSum = 0, labels = [];
       document.querySelectorAll('.est-feature:checked').forEach(cb => {
         fSum += FCOST[cb.value] || 0;
@@ -813,6 +804,7 @@
           if (r.ok) return true;
         } catch {}
       }
+      // Fallback: open prefilled mailto
       const body = Object.entries(payload)
         .filter(([k]) => !k.startsWith('_'))
         .map(([k, v]) => `${k}: ${v}`).join('\n');
@@ -820,23 +812,9 @@
       return false;
     }
 
-    // ─── CONTACT FORM ────────────────────────────────────────────────────────────
-    async function submitContactForm(e) {
-      e.preventDefault();
-      const f = e.target;
-      if (f._hp_contact && f._hp_contact.value) return;
-      const ok = await submitInquiry({
-        source: 'contact-form',
-        name:    f.name.value.trim(),
-        email:   f.email.value.trim(),
-        message: f.message.value.trim()
-      });
-      if (ok) { document.getElementById('contact-success').classList.remove('hidden'); f.reset(); }
-    }
-
     // ─── ESTIMATOR SUBMIT ────────────────────────────────────────────────────────
     async function submitEstimate() {
-      const sel = id => document.getElementById(id);
+      const sel     = id => document.getElementById(id);
       const optText = id => sel(id).options[sel(id).selectedIndex].text;
       const ok = await submitInquiry({
         source:     'project-estimator',
@@ -851,8 +829,8 @@
 
     // ─── BOOKING SUBMIT ──────────────────────────────────────────────────────────
     async function submitBooking() {
-      const hp  = document.querySelector('[name="_hp_book"]');
-      if (hp && hp.value) return;
+      const hp = document.querySelector('[name="_hp_book"]');
+      if (hp && hp.value) return; // honeypot triggered — silently discard
       const err = document.getElementById('book-error');
       const suc = document.getElementById('book-success');
       err.classList.add('hidden'); suc.classList.add('hidden');
