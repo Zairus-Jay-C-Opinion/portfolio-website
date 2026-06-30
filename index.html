@@ -149,7 +149,7 @@
 
   <main>
 
-    <!-- HERO -->
+    <!-- HERO / ABOUT -->
     <section id="hero" class="pt-20 pb-8 max-w-5xl mx-auto px-6">
       <div class="grid md:grid-cols-[2fr_3fr] gap-8 md:gap-10 items-start">
 
@@ -234,143 +234,70 @@
       </div>
     </section>
 
-    <!-- SERVICES / ESTIMATOR -->
-    <!-- id="services" catches the nav link; id="estimate" catches the hero CTA -->
-    <section id="services" class="pb-16 max-w-5xl mx-auto px-6">
-      <div id="estimate" class="border-t border-border pt-12 mb-8">
-        <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Project Estimator</h2>
-        <p class="scroll-reveal text-sm text-muted">Get a rough cost range — configure your project below and the estimate updates live.</p>
-      </div>
-      <div class="grid md:grid-cols-[3fr_2fr] gap-10 items-start">
-        <!-- Fields -->
-        <div class="scroll-reveal space-y-6">
-          <div>
-            <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Project Type</label>
-            <select id="est-type" class="form-input" onchange="calcEstimate()">
-              <option value="landing">Website / Landing Page ($150 base)</option>
-              <option value="webapp">Web App / Dashboard ($400 base)</option>
-              <option value="automation">Automation Workflow ($250 base)</option>
-              <option value="ai">AI Integration ($350 base)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Complexity</label>
-            <select id="est-complexity" class="form-input" onchange="calcEstimate()">
-              <option value="simple">Simple — single purpose, few moving parts ×1.0</option>
-              <option value="standard" selected>Standard — multiple features, one backend ×1.6</option>
-              <option value="complex">Complex — multi-role, integrations, real-time ×2.4</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs text-subtle uppercase tracking-widest mb-3">Add-on Features</label>
-            <div class="space-y-2.5">
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="auth" data-label="Auth/Login" onchange="calcEstimate()">
-                <span class="text-sm text-muted group-hover:text-ink transition-colors">Auth / Login <span class="text-subtle">+$50</span></span>
-              </label>
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="payments" data-label="Payments" onchange="calcEstimate()">
-                <span class="text-sm text-muted group-hover:text-ink transition-colors">Payments <span class="text-subtle">+$80</span></span>
-              </label>
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="database" data-label="Database/Backend" onchange="calcEstimate()">
-                <span class="text-sm text-muted group-hover:text-ink transition-colors">Database / Backend <span class="text-subtle">+$60</span></span>
-              </label>
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="admin" data-label="Admin Dashboard" onchange="calcEstimate()">
-                <span class="text-sm text-muted group-hover:text-ink transition-colors">Admin Dashboard <span class="text-subtle">+$90</span></span>
-              </label>
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="api" data-label="3rd-party API Integration" onchange="calcEstimate()">
-                <span class="text-sm text-muted group-hover:text-ink transition-colors">3rd-party API Integration <span class="text-subtle">+$50</span></span>
-              </label>
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="realtime" data-label="Real-time Updates" onchange="calcEstimate()">
-                <span class="text-sm text-muted group-hover:text-ink transition-colors">Real-time Updates <span class="text-subtle">+$70</span></span>
-              </label>
+    <!-- SKILLS (nav order: 2nd) -->
+    <section class="pb-16 max-w-5xl mx-auto px-6">
+      <div class="border-t border-border pt-12 grid md:grid-cols-2 gap-14 md:gap-20">
+
+        <div id="education">
+          <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-8">Education</h2>
+          <div class="space-y-7">
+            <div class="scroll-reveal">
+              <p class="text-sm font-semibold text-ink leading-snug">Batangas State University</p>
+              <p class="text-sm text-muted mt-0.5">BS Computer Science · 2025–Present · Dean's Lister</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-sm font-semibold text-ink leading-snug">Laguna College</p>
+              <p class="text-sm text-muted mt-0.5">Senior High School, STEM · 2024–2025 · Top 20 of Grade 12</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-sm font-semibold text-ink leading-snug">Rizal Standard Academy</p>
+              <p class="text-sm text-muted mt-0.5">Junior High School · 2022–2023 · With High Honors</p>
             </div>
           </div>
-          <div>
-            <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Timeline</label>
-            <select id="est-timeline" class="form-input" onchange="calcEstimate()">
-              <option value="flexible">Flexible ×1.0</option>
-              <option value="standard" selected>Standard (2–4 weeks) ×1.1</option>
-              <option value="rush">Rush (under 2 weeks) ×1.35</option>
-            </select>
+        </div>
+
+        <div id="skills">
+          <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-8">Skills</h2>
+          <div class="grid grid-cols-2 gap-x-8 gap-y-5">
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Languages</p>
+              <p class="text-sm text-muted leading-relaxed">JavaScript, Python, C++, HTML, CSS</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Frameworks</p>
+              <p class="text-sm text-muted leading-relaxed">React, Vite, Tailwind CSS</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Libraries</p>
+              <p class="text-sm text-muted leading-relaxed">Zustand, Recharts, Framer Motion, Capacitor</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Databases</p>
+              <p class="text-sm text-muted leading-relaxed">Firebase Firestore, Supabase, SQLite</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">APIs & Services</p>
+              <p class="text-sm text-muted leading-relaxed">Finnhub, Gemini, Anthropic, Stripe, Resend, Upstash</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">AI Tools</p>
+              <p class="text-sm text-muted leading-relaxed">Claude, Claude Code, Gemini, Cursor</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Tools</p>
+              <p class="text-sm text-muted leading-relaxed">Git, GitHub, VS Code, n8n, Vercel, Cloudflare, Firebase Hosting</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Concepts</p>
+              <p class="text-sm text-muted leading-relaxed">REST APIs, Serverless, PWA, RLS, OOP, Webhook Automation, OAuth2, Agentic Workflows</p>
+            </div>
           </div>
         </div>
-        <!-- Output -->
-        <div class="scroll-reveal md:sticky md:top-20">
-          <div class="border border-border rounded-xl p-6">
-            <p class="text-xs text-subtle uppercase tracking-widest mb-3">Estimated Range</p>
-            <p id="est-range" class="text-3xl font-bold text-ink mb-2">—</p>
-            <p id="est-features" class="text-xs text-muted mb-4 leading-relaxed">Configure options to see your estimate.</p>
-            <p class="text-xs text-subtle leading-relaxed mb-5">Rough estimate only — not a final quote. Student commission work may be priced differently from business or automation builds. Final pricing confirmed after an initial call.</p>
-            <button onclick="submitEstimate()"
-                    class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
-              Send this estimate as an inquiry
-            </button>
-            <p id="est-success" class="hidden text-xs text-green-600 mt-3 text-center">Inquiry sent!</p>
-          </div>
-        </div>
+
       </div>
     </section>
 
-    <!-- BOOK A CALL -->
-    <section id="book" class="pb-16 max-w-5xl mx-auto px-6">
-      <div class="border-t border-border pt-12 mb-8">
-        <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Book a Call</h2>
-        <p class="scroll-reveal text-sm text-muted max-w-lg">Pick a time that works, fill in your details, and I'll confirm by email. This is a request — not an instant booking.</p>
-      </div>
-      <div class="grid md:grid-cols-[3fr_2fr] gap-10 items-start">
-        <div class="scroll-reveal space-y-6">
-          <div>
-            <p class="text-xs text-subtle uppercase tracking-widest mb-3">Availability <span class="normal-case">(PH time · GMT+8)</span></p>
-            <div id="slot-grid" class="flex flex-wrap gap-2"></div>
-          </div>
-          <div class="space-y-4">
-            <div class="hp-field" aria-hidden="true">
-              <input name="_hp_book" type="text" tabindex="-1" autocomplete="off">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Name</label>
-              <input id="book-name" type="text" class="form-input" placeholder="Your name" autocomplete="name">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Email</label>
-              <input id="book-email" type="email" class="form-input" placeholder="you@example.com" autocomplete="email">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Company / Project <span class="normal-case text-subtle">(optional)</span></label>
-              <input id="book-company" type="text" class="form-input" placeholder="Optional">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Notes</label>
-              <textarea id="book-notes" class="form-input" rows="3" placeholder="What would you like to discuss?"></textarea>
-            </div>
-            <p id="book-error"   class="hidden text-xs text-red-500"></p>
-            <p id="book-success" class="hidden text-xs text-green-600">Request sent! I'll confirm by email.</p>
-            <button onclick="submitBooking()"
-                    class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
-              Request this time
-            </button>
-          </div>
-        </div>
-        <div class="scroll-reveal">
-          <div class="border border-border rounded-xl p-6 space-y-4">
-            <div>
-              <p class="text-sm font-semibold text-ink mb-1">What to expect</p>
-              <p class="text-xs text-muted leading-relaxed">A 20–30 min call to discuss your project, timeline, and requirements. I'll send a confirmation email once I've checked availability.</p>
-            </div>
-            <div class="border-t border-border pt-4">
-              <p class="text-xs text-subtle leading-relaxed">Times are in Philippine Standard Time (GMT+8). I can propose an equivalent in your timezone if needed.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
+    <!-- WORK / PROJECTS (nav order: 3rd) -->
     <section id="projects" class="pb-16 max-w-5xl mx-auto px-6">
       <div class="border-t border-border pt-12 mb-6 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
         <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink">Selected shipped projects</h2>
@@ -580,7 +507,7 @@
       </div>
     </section>
 
-    <!-- TESTIMONIALS -->
+    <!-- TESTIMONIALS (under Work) -->
     <section id="testimonials" class="pb-16 max-w-5xl mx-auto px-6">
       <div class="border-t border-border pt-12 mb-6">
         <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink">Testimonials</h2>
@@ -591,70 +518,143 @@
       </div>
     </section>
 
-    <!-- EDUCATION + SKILLS -->
-    <section class="pb-16 max-w-5xl mx-auto px-6">
-      <div class="border-t border-border pt-12 grid md:grid-cols-2 gap-14 md:gap-20">
-
-        <div id="education">
-          <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-8">Education</h2>
-          <div class="space-y-7">
-            <div class="scroll-reveal">
-              <p class="text-sm font-semibold text-ink leading-snug">Batangas State University</p>
-              <p class="text-sm text-muted mt-0.5">BS Computer Science · 2025–Present · Dean's Lister</p>
-            </div>
-            <div class="scroll-reveal">
-              <p class="text-sm font-semibold text-ink leading-snug">Laguna College</p>
-              <p class="text-sm text-muted mt-0.5">Senior High School, STEM · 2024–2025 · Top 20 of Grade 12</p>
-            </div>
-            <div class="scroll-reveal">
-              <p class="text-sm font-semibold text-ink leading-snug">Rizal Standard Academy</p>
-              <p class="text-sm text-muted mt-0.5">Junior High School · 2022–2023 · With High Honors</p>
+    <!-- SERVICES / ESTIMATOR (nav order: 4th) -->
+    <!-- id="services" catches the nav link; id="estimate" catches the hero CTA -->
+    <section id="services" class="pb-16 max-w-5xl mx-auto px-6">
+      <div id="estimate" class="border-t border-border pt-12 mb-8">
+        <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Project Estimator</h2>
+        <p class="scroll-reveal text-sm text-muted">Get a rough cost range — configure your project below and the estimate updates live.</p>
+      </div>
+      <div class="grid md:grid-cols-[3fr_2fr] gap-10 items-start">
+        <!-- Fields -->
+        <div class="scroll-reveal space-y-6">
+          <div>
+            <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Project Type</label>
+            <select id="est-type" class="form-input" onchange="calcEstimate()">
+              <option value="landing">Website / Landing Page ($150 base)</option>
+              <option value="webapp">Web App / Dashboard ($400 base)</option>
+              <option value="automation">Automation Workflow ($250 base)</option>
+              <option value="ai">AI Integration ($350 base)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Complexity</label>
+            <select id="est-complexity" class="form-input" onchange="calcEstimate()">
+              <option value="simple">Simple — single purpose, few moving parts ×1.0</option>
+              <option value="standard" selected>Standard — multiple features, one backend ×1.6</option>
+              <option value="complex">Complex — multi-role, integrations, real-time ×2.4</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-subtle uppercase tracking-widest mb-3">Add-on Features</label>
+            <div class="space-y-2.5">
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="auth" data-label="Auth/Login" onchange="calcEstimate()">
+                <span class="text-sm text-muted group-hover:text-ink transition-colors">Auth / Login <span class="text-subtle">+$50</span></span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="payments" data-label="Payments" onchange="calcEstimate()">
+                <span class="text-sm text-muted group-hover:text-ink transition-colors">Payments <span class="text-subtle">+$80</span></span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="database" data-label="Database/Backend" onchange="calcEstimate()">
+                <span class="text-sm text-muted group-hover:text-ink transition-colors">Database / Backend <span class="text-subtle">+$60</span></span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="admin" data-label="Admin Dashboard" onchange="calcEstimate()">
+                <span class="text-sm text-muted group-hover:text-ink transition-colors">Admin Dashboard <span class="text-subtle">+$90</span></span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="api" data-label="3rd-party API Integration" onchange="calcEstimate()">
+                <span class="text-sm text-muted group-hover:text-ink transition-colors">3rd-party API Integration <span class="text-subtle">+$50</span></span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" class="est-feature w-4 h-4 rounded" value="realtime" data-label="Real-time Updates" onchange="calcEstimate()">
+                <span class="text-sm text-muted group-hover:text-ink transition-colors">Real-time Updates <span class="text-subtle">+$70</span></span>
+              </label>
             </div>
           </div>
-        </div>
-
-        <div id="skills">
-          <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-8">Skills</h2>
-          <div class="grid grid-cols-2 gap-x-8 gap-y-5">
-            <div class="scroll-reveal">
-              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Languages</p>
-              <p class="text-sm text-muted leading-relaxed">JavaScript, Python, C++, HTML, CSS</p>
-            </div>
-            <div class="scroll-reveal">
-              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Frameworks</p>
-              <p class="text-sm text-muted leading-relaxed">React, Vite, Tailwind CSS</p>
-            </div>
-            <div class="scroll-reveal">
-              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Libraries</p>
-              <p class="text-sm text-muted leading-relaxed">Zustand, Recharts, Framer Motion, Capacitor</p>
-            </div>
-            <div class="scroll-reveal">
-              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Databases</p>
-              <p class="text-sm text-muted leading-relaxed">Firebase Firestore, Supabase, SQLite</p>
-            </div>
-            <div class="scroll-reveal">
-              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">APIs & Services</p>
-              <p class="text-sm text-muted leading-relaxed">Finnhub, Gemini, Anthropic, Stripe, Resend, Upstash</p>
-            </div>
-            <div class="scroll-reveal">
-              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">AI Tools</p>
-              <p class="text-sm text-muted leading-relaxed">Claude, Claude Code, Gemini, Cursor</p>
-            </div>
-            <div class="scroll-reveal">
-              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Tools</p>
-              <p class="text-sm text-muted leading-relaxed">Git, GitHub, VS Code, n8n, Vercel, Cloudflare, Firebase Hosting</p>
-            </div>
-            <div class="scroll-reveal">
-              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Concepts</p>
-              <p class="text-sm text-muted leading-relaxed">REST APIs, Serverless, PWA, RLS, OOP, Webhook Automation, OAuth2, Agentic Workflows</p>
-            </div>
+          <div>
+            <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Timeline</label>
+            <select id="est-timeline" class="form-input" onchange="calcEstimate()">
+              <option value="flexible">Flexible ×1.0</option>
+              <option value="standard" selected>Standard (2–4 weeks) ×1.1</option>
+              <option value="rush">Rush (under 2 weeks) ×1.35</option>
+            </select>
           </div>
         </div>
-
+        <!-- Output — not sticky -->
+        <div class="scroll-reveal">
+          <div class="border border-border rounded-xl p-6">
+            <p class="text-xs text-subtle uppercase tracking-widest mb-3">Estimated Range</p>
+            <p id="est-range" class="text-3xl font-bold text-ink mb-2">$220 – $330</p>
+            <p id="est-features" class="text-xs text-muted mb-4 leading-relaxed">No add-ons selected.</p>
+            <p class="text-xs text-subtle leading-relaxed mb-5">Rough estimate only — not a final quote. Student commission work may be priced differently from business or automation builds. Final pricing confirmed after an initial call.</p>
+            <button onclick="submitEstimate()"
+                    class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
+              Send this estimate as an inquiry
+            </button>
+            <p id="est-success" class="hidden text-xs text-green-600 mt-3 text-center">Inquiry sent!</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- CONTACT — links only, no form -->
+    <!-- BOOK A CALL (under Services) -->
+    <section id="book" class="pb-16 max-w-5xl mx-auto px-6">
+      <div class="border-t border-border pt-12 mb-8">
+        <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Book a Call</h2>
+        <p class="scroll-reveal text-sm text-muted max-w-lg">Pick a time that works, fill in your details, and I'll confirm by email. This is a request — not an instant booking.</p>
+      </div>
+      <div class="grid md:grid-cols-[3fr_2fr] gap-10 items-start">
+        <div class="scroll-reveal space-y-6">
+          <div>
+            <p class="text-xs text-subtle uppercase tracking-widest mb-3">Availability <span class="normal-case">(PH time · GMT+8)</span></p>
+            <div id="slot-grid" class="flex flex-wrap gap-2"></div>
+          </div>
+          <div class="space-y-4">
+            <div class="hp-field" aria-hidden="true">
+              <input name="_hp_book" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <div>
+              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Name</label>
+              <input id="book-name" type="text" class="form-input" placeholder="Your name" autocomplete="name">
+            </div>
+            <div>
+              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Email</label>
+              <input id="book-email" type="email" class="form-input" placeholder="you@example.com" autocomplete="email">
+            </div>
+            <div>
+              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Company / Project <span class="normal-case text-subtle">(optional)</span></label>
+              <input id="book-company" type="text" class="form-input" placeholder="Optional">
+            </div>
+            <div>
+              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Notes</label>
+              <textarea id="book-notes" class="form-input" rows="3" placeholder="What would you like to discuss?"></textarea>
+            </div>
+            <p id="book-error"   class="hidden text-xs text-red-500"></p>
+            <p id="book-success" class="hidden text-xs text-green-600">Request sent! I'll confirm by email.</p>
+            <button onclick="submitBooking()"
+                    class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
+              Request this time
+            </button>
+          </div>
+        </div>
+        <div class="scroll-reveal">
+          <div class="border border-border rounded-xl p-6 space-y-4">
+            <div>
+              <p class="text-sm font-semibold text-ink mb-1">What to expect</p>
+              <p class="text-xs text-muted leading-relaxed">A 20–30 min call to discuss your project, timeline, and requirements. I'll send a confirmation email once I've checked availability.</p>
+            </div>
+            <div class="border-t border-border pt-4">
+              <p class="text-xs text-subtle leading-relaxed">Times are in Philippine Standard Time (GMT+8). I can propose an equivalent in your timezone if needed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT (nav order: 5th) — links only, no form -->
     <section id="contact" class="pb-28 max-w-5xl mx-auto px-6">
       <div class="border-t border-border pt-12 grid md:grid-cols-2 gap-12 items-start">
         <div>
