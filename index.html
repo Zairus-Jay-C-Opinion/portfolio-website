@@ -1,530 +1,415 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zairus Jay C. Opinion — Portfolio</title>
-    <meta name="description" content="Portfolio of Zairus Jay C. Opinion — BSCS student, builder of web apps and automation tools.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zairus Opinion — Web Developer</title>
 
-    <!-- Favicon: blue rounded square with code brackets -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A84FF'/><text x='16' y='22' text-anchor='middle' font-family='monospace' font-size='13' font-weight='700' fill='white'>%3C/%3E</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A84FF'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='14' fill='white'>%3C/%3E</text></svg>">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        bg:        '#1C1C1E',
-                        surface:   '#2C2C2E',
-                        elevated:  '#3A3A3C',
-                        text:      '#F5F5F7',
-                        secondary: '#98989D',
-                        accent:    '#0A84FF',
-                        'accent-light': '#409CFF',
-                    },
-                    fontFamily: {
-                        sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                }
-            }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          colors: {
+            ink:    '#0F0F0F',
+            muted:  '#6B7280',
+            subtle: '#9CA3AF',
+            border: '#E5E7EB',
+            accent: '#0A84FF',
+          }
         }
-    </script>
+      }
+    }
+  </script>
 
-    <style>
-        body {
-            background-color: #1C1C1E;
-            color: #F5F5F7;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
+  <style>
+    /* Skeleton shimmer */
+    .img-wrap { position: relative; overflow: hidden; background: #F3F4F6; }
+    .img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #F3F4F6 25%, #E5E7EB 50%, #F3F4F6 75%);
+      background-size: 400% 100%;
+      animation: shimmer 1.5s infinite;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+    .img-wrap.loaded::after { opacity: 0; pointer-events: none; }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
 
-        .glass-nav {
-            background: rgba(28, 28, 30, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
+    /* Scroll reveal */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+    .scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
 
-        /* Skeleton shimmer */
-        @keyframes shimmer {
-            0%   { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        .img-wrap {
-            position: relative;
-            overflow: hidden;
-        }
-        .img-wrap::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg,
-                rgba(255,255,255,0.04) 25%,
-                rgba(255,255,255,0.09) 50%,
-                rgba(255,255,255,0.04) 75%
-            );
-            background-size: 200% 100%;
-            animation: shimmer 1.4s ease-in-out infinite;
-            transition: opacity 0.4s ease;
-        }
-        .img-wrap.loaded::after {
-            opacity: 0;
-            pointer-events: none;
-        }
+    /* Fade up (hero entrance) */
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.5s ease-out forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(14px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .fade-up {
-            opacity: 0;
-            animation: fadeUp 0.5s ease-out forwards;
-        }
+    /* Project row */
+    .project-row { border-top: 1px solid #E5E7EB; transition: background 0.15s ease; }
+    .project-row:hover { background: #F9FAFB; }
 
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-        .scroll-reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* Nav underline animation */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: #0F0F0F;
+      transition: width 0.2s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
 
-        .project-row {
-            transition: background 0.15s ease;
-        }
-        .project-row:hover {
-            background: rgba(255, 255, 255, 0.025);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-            .fade-up       { opacity: 1; animation: none; }
-            .scroll-reveal { opacity: 1; transform: none; }
-            .img-wrap::after { display: none; }
-        }
-    </style>
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .fade-up { opacity: 1; animation: none; }
+      .scroll-reveal { opacity: 1; transform: none; }
+      .img-wrap::after { display: none; }
+    }
+  </style>
 </head>
-<body class="antialiased selection:bg-accent/20 selection:text-text">
 
-    <!-- Navigation -->
-    <nav class="glass-nav fixed top-0 left-0 w-full z-50">
-        <div class="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-            <span class="text-sm font-semibold text-text tracking-tight select-none">Zairus Opinion</span>
+<body class="bg-white text-ink font-sans antialiased selection:bg-blue-100 selection:text-ink">
 
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#hero"      class="text-sm text-secondary hover:text-text transition-colors duration-200">About</a>
-                <a href="#projects"  class="text-sm text-secondary hover:text-text transition-colors duration-200">Projects</a>
-                <a href="#education" class="text-sm text-secondary hover:text-text transition-colors duration-200">Education</a>
-                <a href="#skills"    class="text-sm text-secondary hover:text-text transition-colors duration-200">Skills</a>
-                <a href="#contact"   class="text-sm text-secondary hover:text-text transition-colors duration-200">Contact</a>
-            </div>
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-border">
+    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <span class="text-sm font-medium tracking-tight select-none">zairusopinion.</span>
+      <!-- Desktop -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#projects" class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Work</a>
+        <a href="#hero"     class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">About</a>
+        <a href="#contact"  class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Contact</a>
+      </div>
+      <!-- Hamburger -->
+      <button id="hamburger" class="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center text-muted" aria-label="Open menu">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <rect y="3.5"  width="20" height="1.5" rx="0.75" fill="currentColor"/>
+          <rect y="9.25" width="20" height="1.5" rx="0.75" fill="currentColor"/>
+          <rect y="15"   width="20" height="1.5" rx="0.75" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-white">
+      <div class="max-w-5xl mx-auto px-6 py-3 flex flex-col">
+        <a href="#projects" class="text-sm text-muted hover:text-ink transition-colors py-3 border-b border-border">Work</a>
+        <a href="#hero"     class="text-sm text-muted hover:text-ink transition-colors py-3 border-b border-border">About</a>
+        <a href="#contact"  class="text-sm text-muted hover:text-ink transition-colors py-3">Contact</a>
+      </div>
+    </div>
+  </nav>
 
-            <button id="mobile-menu-toggle" class="md:hidden text-secondary hover:text-text transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
+  <main>
+
+    <!-- HERO -->
+    <section id="hero" class="pt-32 pb-16 max-w-5xl mx-auto px-6">
+      <div class="grid md:grid-cols-[1fr_auto] gap-10 md:gap-16 items-start">
+
+        <!-- Text -->
+        <div>
+          <h1 class="fade-up text-[2.75rem] md:text-6xl font-bold leading-[1.08] tracking-tight text-ink mb-5" style="animation-delay:0.06s">
+            Zairus Opinion builds things that actually run.
+          </h1>
+          <p class="fade-up text-[0.9375rem] text-muted leading-relaxed max-w-md mb-7" style="animation-delay:0.18s">
+            Incoming 2nd-year CS student at BatStateU from Batangas, PH. I build full-stack web apps with React, Python, and Firebase, and I'm actively looking for part-time remote developer roles.
+          </p>
+          <div class="fade-up flex flex-wrap items-center gap-x-0 text-sm" style="animation-delay:0.28s">
+            <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener"
+               class="text-ink underline underline-offset-4 decoration-border hover:decoration-ink transition-all duration-200">GitHub</a>
+            <span class="text-subtle mx-2">—</span>
+            <a href="https://www.onlinejobs.ph" target="_blank" rel="noopener"
+               class="text-ink underline underline-offset-4 decoration-border hover:decoration-ink transition-all duration-200">OnlineJobs.ph</a>
+            <span class="text-subtle mx-2">—</span>
+            <a href="mailto:opnzrs@gmail.com"
+               class="text-ink underline underline-offset-4 decoration-border hover:decoration-ink transition-all duration-200">Email</a>
+          </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden border-t border-white/5">
-            <div class="max-w-4xl mx-auto px-6 py-3 flex flex-col">
-                <a href="#hero"      class="mobile-link text-sm text-secondary hover:text-text transition-colors py-2.5 min-h-[44px] flex items-center">About</a>
-                <a href="#projects"  class="mobile-link text-sm text-secondary hover:text-text transition-colors py-2.5 min-h-[44px] flex items-center">Projects</a>
-                <a href="#education" class="mobile-link text-sm text-secondary hover:text-text transition-colors py-2.5 min-h-[44px] flex items-center">Education</a>
-                <a href="#skills"    class="mobile-link text-sm text-secondary hover:text-text transition-colors py-2.5 min-h-[44px] flex items-center">Skills</a>
-                <a href="#contact"   class="mobile-link text-sm text-secondary hover:text-text transition-colors py-2.5 min-h-[44px] flex items-center">Contact</a>
-            </div>
+        <!-- Photo -->
+        <div class="fade-up order-first md:order-last" style="animation-delay:0s">
+          <div class="img-wrap w-40 h-40 md:w-52 md:h-52 rounded-full mx-auto md:mx-0 flex-shrink-0">
+            <img src="profile.jpg" alt="Zairus Opinion"
+                 class="w-full h-full object-cover"
+                 onload="this.closest('.img-wrap').classList.add('loaded')"
+                 onerror="this.closest('.img-wrap').classList.add('loaded')">
+          </div>
         </div>
-    </nav>
+      </div>
 
-    <main>
+      <!-- Project overview grid -->
+      <div class="mt-14 pt-10 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-8">
 
-        <!-- Hero -->
-        <section id="hero" class="pt-32 pb-24 max-w-4xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row gap-12 md:gap-16 items-center max-w-xs mx-auto md:max-w-none md:mx-0">
+        <div class="fade-up" style="animation-delay:0.36s">
+          <div class="mb-3 text-muted">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+              <polyline points="16 7 22 7 22 13"/>
+            </svg>
+          </div>
+          <p class="text-sm font-semibold text-ink mb-1">FinTrack</p>
+          <p class="text-xs text-muted leading-relaxed">Personal finance dashboard PWA with real-time market tracking.</p>
+        </div>
 
-                <!-- Photo -->
-                <div class="fade-up flex-shrink-0" style="animation-delay: 0s;">
-                    <div class="img-wrap w-40 h-40 md:w-64 md:h-64 rounded-full ring-1 ring-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.5)] bg-surface">
-                        <img src="profile.jpg" alt="Zairus Jay C. Opinion" class="w-full h-full object-cover">
-                    </div>
-                </div>
+        <div class="fade-up" style="animation-delay:0.42s">
+          <div class="mb-3 text-muted">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <path d="M8 21h8M12 17v4"/>
+            </svg>
+          </div>
+          <p class="text-sm font-semibold text-ink mb-1">TaskBill</p>
+          <p class="text-xs text-muted leading-relaxed">AI-powered task and billing SaaS for freelancers.</p>
+        </div>
 
-                <!-- Text -->
-                <div class="flex-1 w-full">
-                    <span class="fade-up font-mono text-xs text-secondary tracking-wide block mb-6 text-center md:text-left" style="animation-delay: 0.08s;">
-                        BSCS · Batangas State University · Laguna, Philippines
-                    </span>
+        <div class="fade-up" style="animation-delay:0.48s">
+          <div class="mb-3 text-muted">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <p class="text-sm font-semibold text-ink mb-1">Verde</p>
+          <p class="text-xs text-muted leading-relaxed">Hackathon sustainability app, Top 8 of 16 at TechnoFusion 2025.</p>
+        </div>
 
-                    <h2 class="fade-up text-accent text-xl md:text-2xl font-medium mb-4 text-center md:text-left" style="animation-delay: 0.12s;">
-                        Zairus Jay C. Opinion
-                    </h2>
+        <div class="fade-up" style="animation-delay:0.54s">
+          <div class="mb-3 text-muted">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <p class="text-sm font-semibold text-ink mb-1">Grade Monitoring</p>
+          <p class="text-xs text-muted leading-relaxed">Python desktop app with SQLite storage and password-hashed auth.</p>
+        </div>
 
-                    <h1 class="fade-up text-5xl md:text-7xl font-semibold text-text leading-[1.05] tracking-tight mb-4" style="animation-delay: 0.16s;">
-                        I build things<br>
-                        that <span style="text-decoration: underline; text-decoration-color: #0A84FF; text-decoration-thickness: 3px; text-underline-offset: 6px;">actually run.</span>
-                    </h1>
+      </div>
+    </section>
 
-                    <p class="fade-up text-lg md:text-xl text-secondary max-w-xl mt-4" style="animation-delay: 0.3s;">
-                        Scalable backends, React frontends, and a strong aspiration to deliver as a part-time junior web developer.
-                    </p>
+    <!-- PROJECTS -->
+    <section id="projects" class="pb-16 max-w-5xl mx-auto px-6">
+      <div class="border-t border-border pt-12 mb-2 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
+        <h2 class="scroll-reveal text-3xl font-bold tracking-tight text-ink">Selected shipped projects</h2>
+        <p class="scroll-reveal text-xs text-subtle tracking-wide">React · Python · Firebase · Serverless</p>
+      </div>
 
-                    <div class="fade-up mt-8 flex flex-wrap gap-3" style="animation-delay: 0.38s;">
-                        <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank"
-                           class="text-sm text-secondary hover:text-text border border-white/10 hover:border-white/20 px-5 py-2.5 rounded-lg transition-all duration-200 min-h-[44px] flex items-center">
-                            GitHub ↗
-                        </a>
-                        <a href="https://www.onlinejobs.ph/jobseekers/info/5022730" target="_blank"
-                           class="text-sm text-secondary hover:text-text border border-white/10 hover:border-white/20 px-5 py-2.5 rounded-lg transition-all duration-200 min-h-[44px] flex items-center">
-                            OnlineJobs.ph ↗
-                        </a>
-                        <a href="mailto:opnzrs@gmail.com"
-                           class="text-sm text-secondary hover:text-text border border-white/10 hover:border-white/20 px-5 py-2.5 rounded-lg transition-all duration-200 min-h-[44px] flex items-center">
-                            Email ↗
-                        </a>
-                    </div>
-                </div>
+      <!-- 01 -->
+      <article class="project-row scroll-reveal group">
+        <div class="py-8 flex gap-5 md:gap-8">
+          <span class="text-xs text-subtle font-mono w-7 flex-shrink-0 pt-1">01</span>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
+              <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">FinTrack — Personal finance dashboard PWA</h3>
+              <div class="flex sm:flex-col items-start sm:items-end gap-3 sm:gap-1 flex-shrink-0">
+                <a href="#" target="_blank" rel="noopener" class="text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap">Live demo</a>
+                <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
+              </div>
             </div>
+            <p class="text-sm text-muted leading-relaxed mb-3">Real-time stock and crypto tracking, portfolio management, interactive charts, and a serverless API proxy.</p>
+            <p class="text-xs text-subtle leading-relaxed">React, Vite, Tailwind, Zustand, Recharts, Framer Motion, Finnhub API, Capacitor, Vercel</p>
+          </div>
+        </div>
+      </article>
 
-            <div class="mt-20 border-t border-white/5"></div>
-        </section>
-
-        <!-- Projects -->
-        <section id="projects" class="pt-20 pb-20 max-w-4xl mx-auto px-6">
-            <div class="mb-10">
-                <h2 class="text-3xl font-semibold mb-1">Selected Work</h2>
-                <p class="text-base text-secondary">Things I've shipped. Click through — they're live.</p>
+      <!-- 02 -->
+      <article class="project-row scroll-reveal group">
+        <div class="py-8 flex gap-5 md:gap-8">
+          <span class="text-xs text-subtle font-mono w-7 flex-shrink-0 pt-1">02</span>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
+              <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">TaskBill — AI-powered task and billing SaaS</h3>
+              <div class="flex sm:flex-col items-start sm:items-end gap-3 sm:gap-1 flex-shrink-0">
+                <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
+              </div>
             </div>
+            <p class="text-sm text-muted leading-relaxed mb-3">Task management, invoice generation, AI assistance, Stripe payments, transactional email, and rate limiting for freelancers.</p>
+            <p class="text-xs text-subtle leading-relaxed">React 19, Vite, Tailwind, Supabase, Stripe, Anthropic API, Resend, Upstash, Vercel</p>
+          </div>
+        </div>
+      </article>
 
-            <div class="flex flex-col">
-
-                <!-- FinTrack -->
-                <article class="scroll-reveal project-row py-8 border-t border-white/5 group rounded-xl px-3 -mx-3">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="img-wrap flex-shrink-0 w-14 h-14 rounded-2xl ring-1 ring-white/10 bg-white/5 shadow-lg">
-                            <img src="fintrack-logo.png" alt="FinTrack" class="w-full h-full object-cover rounded-2xl">
-                        </div>
-                        <div class="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                            <div>
-                                <h3 class="text-base font-semibold group-hover:text-accent transition-colors duration-200">FinTrack</h3>
-                                <p class="text-sm text-secondary mt-0.5">Personal finance dashboard</p>
-                            </div>
-                            <div class="flex gap-4 flex-shrink-0">
-                                <a href="https://fintrack-one-sigma.vercel.app" target="_blank" class="text-sm text-accent hover:text-accent-light transition-colors min-h-[44px] flex items-center">Live ↗</a>
-                                <a href="https://github.com/Zairus-Jay-C-Opinion/fintrack" target="_blank" class="text-sm text-secondary hover:text-text transition-colors min-h-[44px] flex items-center">GitHub ↗</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pl-[72px]">
-                        <p class="text-sm text-secondary leading-relaxed mb-4">
-                            Live price tracking for investments with interactive Recharts visualizations. Serverless Vercel API routes proxy Finnhub market data — the API key never touches the client. State managed with Zustand. PWA-capable and installable on mobile via Capacitor.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">React</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Vite</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Tailwind CSS</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Recharts</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Zustand</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Framer Motion</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Finnhub API</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Capacitor</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">PWA</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Vercel</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- TaskBill -->
-                <article class="scroll-reveal project-row py-8 border-t border-white/5 group rounded-xl px-3 -mx-3">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="img-wrap flex-shrink-0 w-14 h-14 rounded-2xl ring-1 ring-white/10 bg-white/5 shadow-lg">
-                            <img src="taskbill-logo.png" alt="TaskBill" class="w-full h-full object-cover rounded-2xl">
-                        </div>
-                        <div class="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                            <div>
-                                <h3 class="text-base font-semibold group-hover:text-accent transition-colors duration-200">TaskBill</h3>
-                                <p class="text-sm text-secondary mt-0.5">Task & invoicing SaaS</p>
-                            </div>
-                            <div class="flex gap-4 flex-shrink-0">
-                                <a href="https://taskbill.vercel.app" target="_blank" class="text-sm text-accent hover:text-accent-light transition-colors min-h-[44px] flex items-center">Live ↗</a>
-                                <a href="https://github.com/Zairus-Jay-C-Opinion/taskbill" target="_blank" class="text-sm text-secondary hover:text-text transition-colors min-h-[44px] flex items-center">GitHub ↗</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pl-[72px]">
-                        <p class="text-sm text-secondary leading-relaxed mb-4">
-                            SaaS platform for freelancers and small teams to track billable tasks and generate client invoices. Stripe payment links let clients pay immediately from the invoice. Supabase handles auth and per-account data isolation via Row-Level Security. Includes team chat, browser push notifications for due tasks, and a freemium client limit enforced at the database layer.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">React 19</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Vite</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Tailwind CSS v4</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Supabase</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Row-Level Security</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Stripe</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Vercel Serverless</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Verde -->
-                <article class="scroll-reveal project-row py-8 border-t border-white/5 group rounded-xl px-3 -mx-3">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="img-wrap flex-shrink-0 w-14 h-14 rounded-2xl ring-1 ring-white/10 bg-white shadow-lg">
-                            <img src="verde-logo.png" alt="Verde" class="w-full h-full object-contain rounded-2xl p-1">
-                        </div>
-                        <div class="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                            <div>
-                                <h3 class="text-base font-semibold group-hover:text-accent transition-colors duration-200">Verde</h3>
-                                <p class="text-sm text-secondary mt-0.5">Campus sustainability app · Top 8/16 at TechnoFusion</p>
-                            </div>
-                            <div class="flex flex-wrap gap-4 flex-shrink-0">
-                                <a href="https://www.facebook.com/reel/949778200996129" target="_blank" class="text-sm text-accent hover:text-accent-light transition-colors min-h-[44px] flex items-center">Video ↗</a>
-                                <a href="https://hackathon-technofusion.web.app/student" target="_blank" class="text-sm text-accent hover:text-accent-light transition-colors min-h-[44px] flex items-center">Student ↗</a>
-                                <a href="https://hackathon-technofusion.web.app/vendor/1" target="_blank" class="text-sm text-accent hover:text-accent-light transition-colors min-h-[44px] flex items-center">Vendor ↗</a>
-                                <a href="https://hackathon-technofusion.web.app/admin" target="_blank" class="text-sm text-accent hover:text-accent-light transition-colors min-h-[44px] flex items-center">Admin ↗</a>
-                                <a href="https://github.com/Zairus-Jay-C-Opinion/Verde-draft" target="_blank" class="text-sm text-secondary hover:text-text transition-colors min-h-[44px] flex items-center">GitHub ↗</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pl-[72px]">
-                        <p class="text-sm text-secondary leading-relaxed mb-2">
-                            Eco-challenge platform for BatStateU students. Students submit photo proof of green actions; Gemini Vision API verifies each photo server-side and awards Verde Coins redeemable at campus vendors via QR code scan.
-                        </p>
-                        <p class="text-xs text-secondary/60 italic mb-4">
-                            My role: backend developer — Firebase Firestore, Cloud Functions, atomic coin transactions, real-time listeners, AI photo verification proxy.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Firebase Firestore</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Cloud Functions</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Gemini Vision API</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Atomic Transactions</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Real-time DB</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">React</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Vercel</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Grade Monitoring -->
-                <article class="scroll-reveal project-row py-8 border-t border-white/5 border-b border-b-white/5 group rounded-xl px-3 -mx-3">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="img-wrap flex-shrink-0 w-14 h-14 rounded-2xl ring-1 ring-white/10 shadow-lg">
-                            <img src="grade-logo.jpg" alt="Grade Monitoring System" class="w-full h-full object-cover rounded-2xl">
-                        </div>
-                        <div class="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                            <div>
-                                <h3 class="text-base font-semibold group-hover:text-accent transition-colors duration-200">Grade Monitoring System</h3>
-                                <p class="text-sm text-secondary mt-0.5">Python desktop application</p>
-                            </div>
-                            <div class="flex gap-4 flex-shrink-0">
-                                <a href="https://github.com/Zairus-Jay-C-Opinion/DYNAMIC-GRADE-ESTIMATION-AND-ACADEMIC-PERFORMANCE-PROJECTION-DASHBOARD-SYSTEM/releases/download/Dynamic_Grade_Monitoring_System_v2.0/GradeMonitor.exe"
-                                   class="text-sm text-accent hover:text-accent-light transition-colors min-h-[44px] flex items-center">Download ↓</a>
-                                <a href="https://github.com/Zairus-Jay-C-Opinion/DYNAMIC-GRADE-ESTIMATION-AND-ACADEMIC-PERFORMANCE-PROJECTION-DASHBOARD-SYSTEM" target="_blank"
-                                   class="text-sm text-secondary hover:text-text transition-colors min-h-[44px] flex items-center">GitHub ↗</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pl-[72px]">
-                        <p class="text-sm text-secondary leading-relaxed mb-2">
-                            Desktop app for tracking and projecting academic grades. Supports multiple subjects, weighted component scoring, and score projection to hit a target grade. Password-hashed authentication, SQLite database, modular file structure.
-                        </p>
-                        <p class="text-xs text-secondary/50 italic mb-4">
-                            Note: App is unsigned. Windows SmartScreen or browsers may flag it as unrecognized.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Python</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Tkinter</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">SQLite</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">OOP</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">User Auth</span>
-                            <span class="font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Password Hashing</span>
-                        </div>
-                    </div>
-                </article>
-
+      <!-- 03 -->
+      <article class="project-row scroll-reveal group">
+        <div class="py-8 flex gap-5 md:gap-8">
+          <span class="text-xs text-subtle font-mono w-7 flex-shrink-0 pt-1">03</span>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
+              <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">Verde — Hackathon sustainability app</h3>
+              <div class="flex sm:flex-col items-start sm:items-end gap-3 sm:gap-1 flex-shrink-0">
+                <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
+              </div>
             </div>
-        </section>
+            <p class="text-sm text-muted leading-relaxed mb-3">Top 8 of 16 at TechnoFusion 2025. Backend role: AI photo verification, atomic coin rewards, and QR redemption.</p>
+            <p class="text-xs text-subtle leading-relaxed">Firebase Firestore, Cloud Functions, Gemini Vision API, React</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- 04 -->
+      <article class="project-row scroll-reveal group">
+        <div class="py-8 flex gap-5 md:gap-8">
+          <span class="text-xs text-subtle font-mono w-7 flex-shrink-0 pt-1">04</span>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
+              <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">Grade Monitoring System — Python desktop app</h3>
+              <div class="flex sm:flex-col items-start sm:items-end gap-3 sm:gap-1 flex-shrink-0">
+                <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener" class="text-xs text-muted hover:text-ink transition-colors whitespace-nowrap">GitHub</a>
+              </div>
+            </div>
+            <p class="text-sm text-muted leading-relaxed mb-3">Grade tracking app with password-hashed authentication, SQLite storage, and OOP architecture.</p>
+            <p class="text-xs text-subtle leading-relaxed">Python, Tkinter, SQLite, bcrypt</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- EDUCATION + SKILLS -->
+    <section class="pb-16 max-w-5xl mx-auto px-6">
+      <div class="border-t border-border pt-12 grid md:grid-cols-2 gap-14 md:gap-20">
 
         <!-- Education -->
-        <section id="education" class="pt-20 pb-20 max-w-4xl mx-auto px-6">
-            <div class="mb-10">
-                <h2 class="text-3xl font-semibold mb-1">Academic Background</h2>
+        <div id="education">
+          <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-8">Education</h2>
+          <div class="space-y-7">
+            <div class="scroll-reveal">
+              <p class="text-sm font-semibold text-ink leading-snug">Batangas State University</p>
+              <p class="text-sm text-muted mt-0.5">BS Computer Science · 2025–Present · Dean's Lister</p>
             </div>
-
-            <div class="flex flex-col">
-
-                <!-- BatStateU -->
-                <article class="scroll-reveal flex flex-col sm:flex-row gap-5 sm:gap-6 py-8 border-t border-white/5 group sm:items-start">
-                    <div class="img-wrap flex-shrink-0 w-12 h-12 rounded-full ring-1 ring-white/10 shadow-lg bg-white">
-                        <img src="bsu-logo.jpg" alt="Batangas State University" class="w-full h-full object-contain rounded-full p-0.5">
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1.5">
-                            <h3 class="text-base font-semibold group-hover:text-accent transition-colors duration-200">Batangas State University</h3>
-                            <span class="text-sm text-secondary flex-shrink-0">2025 – present</span>
-                        </div>
-                        <p class="text-sm text-secondary mb-3">BS Computer Science · Incoming 2nd Year</p>
-                        <span class="inline-block font-mono text-xs text-accent bg-accent/10 px-2 py-0.5 rounded-md">Dean's Lister</span>
-                    </div>
-                </article>
-
-                <!-- Laguna College -->
-                <article class="scroll-reveal flex flex-col sm:flex-row gap-5 sm:gap-6 py-8 border-t border-white/5 group sm:items-start">
-                    <div class="img-wrap flex-shrink-0 w-12 h-12 rounded-full ring-1 ring-white/10 shadow-lg bg-white">
-                        <img src="lc-logo.jpg" alt="Laguna College" class="w-full h-full object-contain rounded-full p-0.5">
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1.5">
-                            <h3 class="text-base font-semibold group-hover:text-accent transition-colors duration-200">Laguna College</h3>
-                            <span class="text-sm text-secondary flex-shrink-0">2024 – 2025</span>
-                        </div>
-                        <p class="text-sm text-secondary mb-3">Senior High School</p>
-                        <span class="inline-block font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">Top 20 of Grade 12</span>
-                    </div>
-                </article>
-
-                <!-- Rizal Standard Academy -->
-                <article class="scroll-reveal flex flex-col sm:flex-row gap-5 sm:gap-6 py-8 border-t border-white/5 border-b border-b-white/5 group sm:items-start">
-                    <div class="img-wrap flex-shrink-0 w-12 h-12 rounded-full ring-1 ring-white/10 shadow-lg bg-white">
-                        <img src="rsa-logo.jpg" alt="Rizal Standard Academy" class="w-full h-full object-contain rounded-full p-0.5">
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1.5">
-                            <h3 class="text-base font-semibold group-hover:text-accent transition-colors duration-200">Rizal Standard Academy</h3>
-                            <span class="text-sm text-secondary flex-shrink-0">2022 – 2023</span>
-                        </div>
-                        <p class="text-sm text-secondary mb-3">High School</p>
-                        <span class="inline-block font-mono text-xs text-secondary bg-white/5 px-2 py-0.5 rounded-md">With High Honors</span>
-                    </div>
-                </article>
-
+            <div class="scroll-reveal">
+              <p class="text-sm font-semibold text-ink leading-snug">Laguna College</p>
+              <p class="text-sm text-muted mt-0.5">Senior High School, STEM · 2024–2025 · Top 20 of Grade 12</p>
             </div>
-        </section>
+            <div class="scroll-reveal">
+              <p class="text-sm font-semibold text-ink leading-snug">Rizal Standard Academy</p>
+              <p class="text-sm text-muted mt-0.5">Junior High School · 2022–2023 · With High Honors</p>
+            </div>
+          </div>
+        </div>
 
         <!-- Skills -->
-        <section id="skills" class="pt-20 pb-20 max-w-4xl mx-auto px-6">
-            <div class="mb-10">
-                <h2 class="text-3xl font-semibold mb-1">What I Work With</h2>
+        <div id="skills">
+          <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-8">Skills</h2>
+          <div class="grid grid-cols-2 gap-x-8 gap-y-5">
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Languages</p>
+              <p class="text-sm text-muted leading-relaxed">JavaScript, Python, C++, HTML, CSS</p>
             </div>
-
-            <div class="rounded-2xl bg-surface ring-1 ring-white/5 overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.3)]">
-                <dl>
-                    <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-1 md:gap-6 px-6 py-4 border-b border-white/5">
-                        <dt class="font-mono text-xs text-secondary uppercase tracking-wider flex items-start pt-0.5">Languages</dt>
-                        <dd class="text-sm text-text">Python, JavaScript, C++, HTML, CSS</dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-1 md:gap-6 px-6 py-4 border-b border-white/5">
-                        <dt class="font-mono text-xs text-secondary uppercase tracking-wider flex items-start pt-0.5">Frameworks</dt>
-                        <dd class="text-sm text-text">React, Vite, Tailwind CSS</dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-1 md:gap-6 px-6 py-4 border-b border-white/5">
-                        <dt class="font-mono text-xs text-secondary uppercase tracking-wider flex items-start pt-0.5">Libraries</dt>
-                        <dd class="text-sm text-text">Recharts, Framer Motion, Zustand, Tkinter, date-fns</dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-1 md:gap-6 px-6 py-4 border-b border-white/5">
-                        <dt class="font-mono text-xs text-secondary uppercase tracking-wider flex items-start pt-0.5">Databases</dt>
-                        <dd class="text-sm text-text">Firebase Firestore, Supabase, SQLite</dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-1 md:gap-6 px-6 py-4 border-b border-white/5">
-                        <dt class="font-mono text-xs text-secondary uppercase tracking-wider flex items-start pt-0.5">APIs & Services</dt>
-                        <dd class="text-sm text-text">Gemini Vision API, Finnhub API, Yahoo Finance API, Anthropic API, Stripe, Resend, Upstash</dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-1 md:gap-6 px-6 py-4 border-b border-white/5">
-                        <dt class="font-mono text-xs text-secondary uppercase tracking-wider flex items-start pt-0.5">AI Tools</dt>
-                        <dd class="text-sm text-text">Claude, ChatGPT, Gemini, Antigravity, Cursor, BlackBox</dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-1 md:gap-6 px-6 py-4 border-b border-white/5">
-                        <dt class="font-mono text-xs text-secondary uppercase tracking-wider flex items-start pt-0.5">Tools</dt>
-                        <dd class="text-sm text-text">Git, GitHub, Vercel, Firebase Cloud Functions, Capacitor, n8n</dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-1 md:gap-6 px-6 py-4">
-                        <dt class="font-mono text-xs text-secondary uppercase tracking-wider flex items-start pt-0.5">Concepts</dt>
-                        <dd class="text-sm text-text leading-relaxed">OOP, CRUD, Real-time Databases, Atomic Transactions, PWA, API Integration, User Authentication, Proxy Architecture</dd>
-                    </div>
-                </dl>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Frameworks</p>
+              <p class="text-sm text-muted leading-relaxed">React, Vite, Tailwind CSS</p>
             </div>
-        </section>
-
-        <!-- Contact -->
-        <section id="contact" class="pt-20 pb-32 max-w-4xl mx-auto px-6">
-            <div class="mb-10">
-                <h2 class="text-3xl font-semibold mb-1">Let's Work Together</h2>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Libraries</p>
+              <p class="text-sm text-muted leading-relaxed">Zustand, Recharts, Framer Motion, Capacitor</p>
             </div>
-
-            <p class="text-base text-secondary leading-relaxed max-w-sm mb-10">
-                I'm looking for part-time development work — frontend, backend, or anything in between. If you have a project that needs building, I'm available.
-            </p>
-
-            <div class="flex flex-col gap-0.5">
-                <a href="mailto:opnzrs@gmail.com" class="flex items-center gap-3 py-3 text-secondary hover:text-text transition-colors duration-200 min-h-[44px] w-fit">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    <span class="text-base">opnzrs@gmail.com</span>
-                </a>
-                <a href="tel:+639989273268" class="flex items-center gap-3 py-3 text-secondary hover:text-text transition-colors duration-200 min-h-[44px] w-fit">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                    <span class="text-base">+63 998 927 3268</span>
-                </a>
-                <a href="https://www.onlinejobs.ph/jobseekers/info/5022730" target="_blank" class="flex items-center gap-3 py-3 text-secondary hover:text-text transition-colors duration-200 min-h-[44px] w-fit">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-                    <span class="text-base">OnlineJobs.ph</span>
-                </a>
-                <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" class="flex items-center gap-3 py-3 text-secondary hover:text-text transition-colors duration-200 min-h-[44px] w-fit">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-                    <span class="text-base">github.com/Zairus-Jay-C-Opinion</span>
-                </a>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Databases</p>
+              <p class="text-sm text-muted leading-relaxed">Firebase Firestore, Supabase, SQLite</p>
             </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="max-w-4xl mx-auto px-6">
-        <div class="flex flex-col md:flex-row items-center justify-between py-8 border-t border-white/5">
-            <p class="text-xs text-secondary">© 2026 Zairus Jay C. Opinion</p>
-            <a href="#" class="text-xs text-secondary hover:text-text transition-colors mt-4 md:mt-0 flex items-center gap-1.5">
-                Back to top
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
-            </a>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">APIs & Services</p>
+              <p class="text-sm text-muted leading-relaxed">Finnhub, Gemini, Anthropic, Stripe, Resend, Upstash</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">AI Tools</p>
+              <p class="text-sm text-muted leading-relaxed">Claude, Gemini, Cursor, GitHub Copilot</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Tools</p>
+              <p class="text-sm text-muted leading-relaxed">Git, GitHub, VS Code, Vercel, Firebase Hosting</p>
+            </div>
+            <div class="scroll-reveal">
+              <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">Concepts</p>
+              <p class="text-sm text-muted leading-relaxed">REST APIs, Serverless, PWA, RLS, OOP</p>
+            </div>
+          </div>
         </div>
-    </footer>
 
-    <script>
-        // Mobile nav
-        const toggle = document.getElementById('mobile-menu-toggle');
-        const menu = document.getElementById('mobile-menu');
-        toggle.addEventListener('click', () => menu.classList.toggle('hidden'));
-        document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => menu.classList.add('hidden')));
+      </div>
+    </section>
 
-        // Scroll reveal
-        const observer = new IntersectionObserver((entries, obs) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    <!-- CONTACT -->
+    <section id="contact" class="pb-28 max-w-5xl mx-auto px-6">
+      <div class="border-t border-border pt-12 grid md:grid-cols-2 gap-12 items-start">
+        <div>
+          <h2 class="scroll-reveal text-3xl md:text-4xl font-bold tracking-tight text-ink leading-tight mb-4">
+            Open to part-time remote roles.
+          </h2>
+          <p class="scroll-reveal text-sm text-muted leading-relaxed max-w-xs">
+            Available for frontend, backend, or full-stack work where I can help build reliable web apps, APIs, dashboards, and internal tools.
+          </p>
+        </div>
+        <div class="scroll-reveal flex flex-col gap-0.5 md:items-end">
+          <a href="mailto:opnzrs@gmail.com"
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">Email</a>
+          <a href="tel:+63"
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">Phone</a>
+          <a href="https://www.onlinejobs.ph" target="_blank" rel="noopener"
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">OnlineJobs.ph profile</a>
+          <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener"
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">GitHub profile</a>
+        </div>
+      </div>
+    </section>
 
-        // Skeleton: remove shimmer once each image finishes loading
-        document.querySelectorAll('.img-wrap img').forEach(img => {
-            const wrap = img.closest('.img-wrap');
-            if (img.complete && img.naturalWidth > 0) {
-                wrap.classList.add('loaded');
-            } else {
-                img.addEventListener('load', () => wrap.classList.add('loaded'));
-                img.addEventListener('error', () => wrap.classList.add('loaded'));
-            }
-        });
-    </script>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-border">
+    <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-subtle">© 2026 Zairus Opinion</p>
+      <a href="#" class="text-sm text-subtle hover:text-ink transition-colors duration-200">Back to top</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+    // Skeleton shimmer removal
+    document.querySelectorAll('.img-wrap img').forEach(img => {
+      if (img.complete) img.closest('.img-wrap').classList.add('loaded');
+    });
+  </script>
 
 </body>
 </html>
