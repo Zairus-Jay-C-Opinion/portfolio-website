@@ -106,6 +106,13 @@
       background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A;
     }
 
+    /* Ready-to-deploy badge — built and tested, not actively in progress */
+    .badge-ready {
+      display: inline-flex; align-items: center; font-size: 0.6875rem; font-weight: 500;
+      padding: 0.125rem 0.5rem; border-radius: 9999px;
+      background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
       .fade-up { opacity: 1; animation: none; }
@@ -474,13 +481,20 @@
           <div class="py-7 flex gap-5 md:gap-8">
             <div class="w-7 flex-shrink-0 pt-0.5 text-subtle">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                <line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/>
               </svg>
             </div>
             <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-semibold text-ink mb-2 group-hover:text-accent transition-colors duration-200">DM Lead-Response Automation</h3>
-              <p class="text-sm text-muted leading-relaxed mb-3">Built for an NZ-based import business. Gemini 2.5 Flash generates contextual responses to Instagram and Facebook DMs, routed through ManyChat Dynamic Content blocks, with a Firestore product catalog as the backend.</p>
-              <p class="text-xs text-subtle leading-relaxed">n8n, Gemini API, ManyChat, Firestore</p>
+              <h3 class="text-sm font-semibold text-ink mb-1 group-hover:text-accent transition-colors duration-200">DM Lead-Response System</h3>
+              <p class="text-xs text-subtle mb-3">Built for an NZ-based import business</p>
+              <p class="text-sm text-muted leading-relaxed mb-4">A multi-workflow automation system handling AI-powered DM replies across Instagram and Facebook. Customer messages hit a ManyChat Dynamic Content block, which POSTs to n8n where Gemini 2.5 Flash generates a contextual response from a live Firestore product catalog. The system includes conversation state management (active → handoff → resolved), a Gemini error-retry sub-workflow, a post-sale thank-you trigger, and a React dashboard for the business owner to monitor conversations and manually resume the bot after handoff.</p>
+              <div class="flex flex-wrap gap-x-6 gap-y-2 mb-4 py-3 border-y border-border">
+                <div><span class="text-sm font-semibold text-ink">312</span> <span class="text-xs text-subtle">production executions</span></div>
+                <div><span class="text-sm font-semibold text-ink">6.73s</span> <span class="text-xs text-subtle">average runtime</span></div>
+                <div><span class="text-sm font-semibold text-ink">IG · FB</span> <span class="text-xs text-subtle">Instagram DM, Facebook Messenger</span></div>
+              </div>
+              <p class="text-xs text-subtle leading-relaxed mb-3">n8n, Gemini 2.5 Flash, ManyChat, Firebase Firestore, Cloudinary, React, DigitalOcean</p>
+              <p class="text-xs text-subtle leading-relaxed"><span class="text-subtle">Sub-workflows:</span> Gemini Retry Handler (error retries with exponential backoff) · Thank You Trigger (post-sale message on resolution) · Conversation Status Automation (bot-active ↔ human-handoff transitions)</p>
             </div>
           </div>
         </article>
@@ -495,14 +509,20 @@
               </svg>
             </div>
             <div class="flex-1 min-w-0">
-              <h3 class="text-sm font-semibold text-ink mb-2 group-hover:text-accent transition-colors duration-200">Market Intelligence Reporting</h3>
-              <p class="text-sm text-muted leading-relaxed mb-3">Same anonymous client. Automated competitor and market research pipeline — SerpAPI queries assembled and formatted into a Google Docs report via n8n on a recurring schedule.</p>
-              <p class="text-xs text-subtle leading-relaxed">n8n, SerpAPI, Google Docs API</p>
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">Market Intelligence Report Pipeline</h3>
+                <span class="badge-ready">Ready to Deploy</span>
+              </div>
+              <p class="text-xs text-subtle mb-3">Same NZ-based import business</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">An automated research pipeline that runs competitor and market analysis for a product-import business. Queries SerpAPI for relevant market signals, structures the results, and assembles a formatted report delivered directly into a Google Doc via the Docs API — no manual copy-paste. Scheduled to run on a defined cadence so the business owner receives fresh intelligence without doing the research themselves.</p>
+              <p class="text-xs text-subtle leading-relaxed">n8n, SerpAPI, Google Docs API, Google OAuth2</p>
             </div>
           </div>
         </article>
 
-        <p class="text-xs text-subtle py-8 border-t border-border">More automation case studies will be added as builds are completed.</p>
+        <p class="scroll-reveal text-xs text-subtle leading-relaxed border-t border-border pt-8 pb-3">Both systems run on a self-hosted n8n instance (Docker on DigitalOcean), with Cloudflare DNS routing subdomains and Caddy handling SSL. Credentials, product data, and conversation logs are stored in Firebase Firestore.</p>
+
+        <p class="text-xs text-subtle pb-8">More automation case studies will be added as builds are completed.</p>
 
       </div>
     </section>
