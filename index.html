@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zairus Opinion — Web Developer & Automation Builder</title>
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230A84FF'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='14' fill='white'>%3C/%3E</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -302,6 +304,15 @@
         </div>
 
       </div>
+    </section>
+
+    <!-- CERTIFICATIONS — not in nav, discoverable by scroll between Skills and Contact -->
+    <section id="certifications" class="pb-16 max-w-5xl mx-auto px-6">
+      <div class="border-t border-border pt-12 mb-8">
+        <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Certifications</h2>
+        <p class="scroll-reveal text-sm text-muted">In progress — updated as each one is completed.</p>
+      </div>
+      <div id="certifications-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </section>
 
     <!-- WORK / PROJECTS (nav order: 3rd) -->
@@ -674,7 +685,7 @@
       </div>
     </section>
 
-    <!-- CONTACT (nav order: 5th) — links only, no form -->
+    <!-- CONTACT (nav order: 5th) — inquiry form above the existing contact links -->
     <section id="contact" class="pb-28 max-w-5xl mx-auto px-6">
       <div class="border-t border-border pt-12 grid md:grid-cols-2 gap-12 items-start">
         <div>
@@ -686,31 +697,59 @@
           </p>
         </div>
 
-        <div class="scroll-reveal flex flex-col gap-0.5 md:items-end">
-          <a href="mailto:opnzrs@gmail.com"
-             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
-            opnzrs@gmail.com
-          </a>
-          <a href="tel:+639989273268"
-             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
-            +63 998 927 3268
-          </a>
-          <a href="https://www.onlinejobs.ph" target="_blank" rel="noopener"
-             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
-            OnlineJobs.ph profile
-          </a>
-          <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener"
-             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
-            GitHub profile
-          </a>
-          <!-- Social links — shown by JS once config values are set -->
-          <!-- TODO: fill in social URLs -->
-          <a id="social-instagram" href="#" target="_blank" rel="noopener"
-             class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center md:justify-end">Instagram</a>
-          <a id="social-facebook" href="#" target="_blank" rel="noopener"
-             class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center md:justify-end">Facebook</a>
-          <a id="social-x" href="#" target="_blank" rel="noopener"
-             class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center md:justify-end">X / Twitter</a>
+        <div class="scroll-reveal flex flex-col gap-6">
+          <form id="contact-form" class="space-y-4" onsubmit="event.preventDefault(); submitContact();">
+            <div class="hp-field" aria-hidden="true">
+              <input name="_hp_contact" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <div>
+              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Name</label>
+              <input id="contact-name" type="text" class="form-input" placeholder="Your name" autocomplete="name">
+            </div>
+            <div>
+              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Email</label>
+              <input id="contact-email" type="email" class="form-input" placeholder="you@example.com" autocomplete="email">
+            </div>
+            <div>
+              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Message</label>
+              <textarea id="contact-message" class="form-input" rows="4" placeholder="What are you looking to build?"></textarea>
+            </div>
+            <p id="contact-error" class="hidden text-xs text-red-500"></p>
+            <div id="contact-submit-row">
+              <button type="submit"
+                      class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
+                Send message
+              </button>
+            </div>
+            <p id="contact-success" class="hidden text-xs text-green-600 text-center">Sent — I'll get back to you soon.</p>
+          </form>
+
+          <div class="flex flex-col gap-0.5 md:items-end border-t border-border pt-6">
+            <a href="mailto:opnzrs@gmail.com"
+               class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
+              opnzrs@gmail.com
+            </a>
+            <a href="tel:+639989273268"
+               class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
+              +63 998 927 3268
+            </a>
+            <a href="https://www.onlinejobs.ph" target="_blank" rel="noopener"
+               class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
+              OnlineJobs.ph profile
+            </a>
+            <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener"
+               class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
+              GitHub profile
+            </a>
+            <!-- Social links — shown by JS once config values are set -->
+            <!-- TODO: fill in social URLs -->
+            <a id="social-instagram" href="#" target="_blank" rel="noopener"
+               class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center md:justify-end">Instagram</a>
+            <a id="social-facebook" href="#" target="_blank" rel="noopener"
+               class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center md:justify-end">Facebook</a>
+            <a id="social-x" href="#" target="_blank" rel="noopener"
+               class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center md:justify-end">X / Twitter</a>
+          </div>
         </div>
       </div>
     </section>
@@ -737,6 +776,16 @@
       "Mon 7–9 PM", "Tue 7–9 PM", "Wed 7–9 PM", "Thu 7–9 PM", "Fri 7–9 PM",
       "Sat 10AM–1PM", "Sat 2–5PM", "Sun 10AM–1PM", "Sun 2–5PM"
     ];
+    // Certifications in progress — fill in `date` + `credentialUrl` once each is earned
+    const CERTIFICATIONS = [
+      { name: "ChatGPT Prompt Engineering for Developers", issuer: "DeepLearning.AI", date: "", credentialUrl: "" },
+      { name: "Building Systems with the ChatGPT API",     issuer: "DeepLearning.AI", date: "", credentialUrl: "" },
+      { name: "AI Agents in LangGraph",                    issuer: "DeepLearning.AI", date: "", credentialUrl: "" },
+      { name: "SEO Certification",                         issuer: "HubSpot Academy", date: "", credentialUrl: "" },
+      { name: "Google Analytics Certification",            issuer: "Google Skillshop", date: "", credentialUrl: "" },
+      { name: "SEO Essentials Certification",               issuer: "Semrush Academy", date: "", credentialUrl: "" },
+      { name: "NSE 1–3 Network Security",                  issuer: "Fortinet", date: "", credentialUrl: "" },
+    ];
     // ─────────────────────────────────────────────────────────────────────────────
 
     // Apply config
@@ -745,6 +794,26 @@
     if (SOCIAL_INSTAGRAM) { const el = document.getElementById('social-instagram'); el.href = SOCIAL_INSTAGRAM; el.classList.replace('hidden','flex'); }
     if (SOCIAL_FACEBOOK)  { const el = document.getElementById('social-facebook');  el.href = SOCIAL_FACEBOOK;  el.classList.replace('hidden','flex'); }
     if (SOCIAL_X)         { const el = document.getElementById('social-x');         el.href = SOCIAL_X;         el.classList.replace('hidden','flex'); }
+
+    // ─── CERTIFICATIONS ──────────────────────────────────────────────────────────
+    const certGrid = document.getElementById('certifications-grid');
+    CERTIFICATIONS.forEach(cert => {
+      const inProgress = !cert.date;
+      const linkable = !inProgress && cert.credentialUrl;
+      const card = document.createElement(linkable ? 'a' : 'div');
+      if (linkable) { card.href = cert.credentialUrl; card.target = '_blank'; card.rel = 'noopener'; }
+      card.className = 'scroll-reveal border border-border rounded-xl p-5 flex flex-col justify-between min-h-[128px] hover:border-zinc-400 transition-colors duration-200';
+      card.innerHTML = `
+        <div>
+          <p class="text-xs text-subtle uppercase tracking-widest mb-2">${cert.issuer}</p>
+          <p class="text-sm font-semibold text-ink leading-snug">${cert.name}</p>
+        </div>
+        <div class="flex justify-end mt-4">
+          ${inProgress ? '<span class="badge-wip">In Progress</span>' : `<span class="text-xs text-subtle">${cert.date}</span>`}
+        </div>
+      `;
+      certGrid.appendChild(card);
+    });
 
     // Mobile menu
     const hamburger  = document.getElementById('hamburger');
@@ -866,6 +935,25 @@
         notes:   document.getElementById('book-notes').value.trim()
       });
       if (ok) suc.classList.remove('hidden');
+    }
+
+    // ─── CONTACT FORM SUBMIT ─────────────────────────────────────────────────────
+    async function submitContact() {
+      const hp = document.querySelector('[name="_hp_contact"]');
+      if (hp && hp.value) return; // honeypot triggered — silently discard
+      const err = document.getElementById('contact-error');
+      const suc = document.getElementById('contact-success');
+      err.classList.add('hidden'); suc.classList.add('hidden');
+      const name    = document.getElementById('contact-name').value.trim();
+      const email   = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+      if (!name || !email || !message) { err.textContent = 'Please fill in your name, email, and message.'; err.classList.remove('hidden'); return; }
+      const ok = await submitInquiry({ source: 'contact-form', name, email, message });
+      if (ok) {
+        document.getElementById('contact-submit-row').classList.add('hidden');
+        suc.classList.remove('hidden');
+        document.getElementById('contact-form').reset();
+      }
     }
   </script>
 
