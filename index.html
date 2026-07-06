@@ -458,7 +458,28 @@
                 <span class="text-xs text-subtle italic flex-shrink-0">GitHub link coming soon</span>
               </div>
               <p class="text-sm text-muted leading-relaxed mb-3">Built for a client who needed a personal health tracking tool. Cycle and symptom logging, predictions, and history view.</p>
-              <p class="text-xs text-subtle leading-relaxed">Expo, React Native</p>
+              <p class="text-xs text-subtle leading-relaxed mb-4">Expo, React Native</p>
+
+              <div class="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory">
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-28 sm:w-32 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="nailong-splash.webp">
+                  <img src="nailong-splash.webp" alt="Nailong app splash screen with mascot character" class="w-full h-auto" loading="lazy">
+                </button>
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-28 sm:w-32 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="nailong-home.webp">
+                  <img src="nailong-home.webp" alt="Nailong app home screen with cycle day counter and mascot messages" class="w-full h-auto" loading="lazy">
+                </button>
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-28 sm:w-32 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="nailong-log.webp">
+                  <img src="nailong-log.webp" alt="Nailong app period logging screen with flow and symptom tracking" class="w-full h-auto" loading="lazy">
+                </button>
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-28 sm:w-32 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="nailong-calendar.webp">
+                  <img src="nailong-calendar.webp" alt="Nailong app calendar screen with period, fertile, and ovulation days" class="w-full h-auto" loading="lazy">
+                </button>
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-28 sm:w-32 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="nailong-insights.webp">
+                  <img src="nailong-insights.webp" alt="Nailong app insights screen with cycle stats and symptom patterns" class="w-full h-auto" loading="lazy">
+                </button>
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-28 sm:w-32 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="nailong-settings.webp">
+                  <img src="nailong-settings.webp" alt="Nailong app settings screen with reminders and partner sharing" class="w-full h-auto" loading="lazy">
+                </button>
+              </div>
             </div>
           </div>
         </article>
@@ -763,6 +784,12 @@
     </div>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="hidden fixed inset-0 z-[60] bg-black/90 items-center justify-center p-6">
+    <button id="lightbox-close" type="button" aria-label="Close" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white/70 hover:text-white text-3xl leading-none w-11 h-11 flex items-center justify-center">&times;</button>
+    <img id="lightbox-img" src="" alt="" class="max-h-[88vh] max-w-full rounded-xl">
+  </div>
+
   <script>
     // ─── CONFIG ──────────────────────────────────────────────────────────────────
     const INQUIRY_WEBHOOK_URL = ""; // TODO: n8n webhook URL once live
@@ -831,6 +858,30 @@
     document.querySelectorAll('.img-wrap img').forEach(img => {
       if (img.complete) img.closest('.img-wrap').classList.add('loaded');
     });
+
+    // ─── LIGHTBOX ────────────────────────────────────────────────────────────────
+    const lightbox    = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+    }
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      lightboxImg.src = '';
+    }
+    document.querySelectorAll('.lightbox-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const img = btn.querySelector('img');
+        openLightbox(btn.dataset.full, img.alt);
+      });
+    });
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 
     // ─── TABS ────────────────────────────────────────────────────────────────────
     document.querySelectorAll('.tab-btn').forEach(btn => {
