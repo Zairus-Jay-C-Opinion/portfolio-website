@@ -454,13 +454,12 @@
             <div class="flex-1 min-w-0">
               <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
                 <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">Nailong — Period Tracker App</h3>
-                <!-- TODO: add GitHub link once repo is moved to its own public repository -->
-                <span class="text-xs text-subtle italic flex-shrink-0">GitHub link coming soon</span>
+                <button type="button" class="mockup-toggle text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap flex-shrink-0" aria-expanded="false" data-label-show="View screenshots" data-label-hide="Hide screenshots">View screenshots</button>
               </div>
               <p class="text-sm text-muted leading-relaxed mb-3">Built for a client who needed a personal health tracking tool. Cycle and symptom logging, predictions, and history view.</p>
-              <p class="text-xs text-subtle leading-relaxed mb-4">Expo, React Native</p>
+              <p class="text-xs text-subtle leading-relaxed">Expo, React Native</p>
 
-              <div class="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory">
+              <div class="mockup-gallery hidden mt-4 flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory">
                 <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-28 sm:w-32 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="nailong-splash.webp">
                   <img src="nailong-splash.webp" alt="Nailong app splash screen with mascot character" class="w-full h-auto" loading="lazy">
                 </button>
@@ -882,6 +881,16 @@
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
     document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+    // ─── MOCKUP GALLERY TOGGLE ───────────────────────────────────────────────────
+    document.querySelectorAll('.mockup-toggle').forEach(btn => {
+      const gallery = btn.closest('article').querySelector('.mockup-gallery');
+      btn.addEventListener('click', () => {
+        const nowHidden = gallery.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', String(!nowHidden));
+        btn.textContent = nowHidden ? btn.dataset.labelShow : btn.dataset.labelHide;
+      });
+    });
 
     // ─── TABS ────────────────────────────────────────────────────────────────────
     document.querySelectorAll('.tab-btn').forEach(btn => {
