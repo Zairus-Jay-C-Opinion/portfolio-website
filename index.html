@@ -1045,6 +1045,8 @@
     const TMULT = { flexible: 1, standard: 1.1, rush: 1.35 };
     const FCOST = { auth: 50, payments: 80, database: 60, admin: 90, api: 50, realtime: 70 };
 
+    let estimateState = { low: 0, high: 0, features: [] };
+
     function calcEstimate() {
       const base = BASE[document.getElementById('est-type').value]       || 150;
       const cm   = CMULT[document.getElementById('est-complexity').value] || 1;
@@ -1057,6 +1059,7 @@
       const sub  = (base * cm + fSum) * tm;
       const low  = Math.round(sub * 0.85 / 10) * 10;
       const high = Math.round(sub * 1.25 / 10) * 10;
+      estimateState = { low, high, features: labels };
       document.getElementById('est-range').textContent    = `$${low.toLocaleString()} – $${high.toLocaleString()}`;
       document.getElementById('est-features').textContent = labels.length ? `Includes: ${labels.join(', ')}` : 'No add-ons selected.';
     }
@@ -1140,13 +1143,16 @@
         err.textContent = 'Please fill in your name and email.'; err.classList.remove('hidden'); return;
       }
       const ok = await submitInquiry({
+        kind:       'estimate',
         source:     'project-estimator',
         name, email,
         type:       optText('est-type'),
         complexity: optText('est-complexity'),
         timeline:   optText('est-timeline'),
-        range:      sel('est-range').textContent,
-        features:   sel('est-features').textContent
+        features:   estimateState.features,
+        low:        estimateState.low,
+        high:       estimateState.high,
+        range:      sel('est-range').textContent
       });
       if (ok) {
         sel('est-submit').classList.add('hidden');
