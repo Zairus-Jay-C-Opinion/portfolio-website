@@ -74,15 +74,29 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* Slot chips */
-    .slot-chip {
-      padding: 0.4375rem 0.875rem; font-size: 0.8125rem;
-      border: 1px solid #E5E7EB; border-radius: 0.5rem;
-      cursor: pointer; background: white; color: #6B7280;
-      transition: all 0.15s; user-select: none;
+    /* Day cards (Book a Call slot picker) */
+    .day-card {
+      display: flex; flex-direction: column; gap: 0.375rem;
+      border: 1px solid #E5E7EB; border-radius: 0.625rem; padding: 0.625rem;
+      transition: border-color 0.15s, background 0.15s;
     }
-    .slot-chip:hover { border-color: #9CA3AF; color: #0F0F0F; }
-    .slot-chip.selected { border-color: #0F0F0F; color: #0F0F0F; background: #F9FAFB; }
+    .day-card.selected { border-color: #0F0F0F; background: #F9FAFB; }
+    .day-card-label {
+      font-size: 0.6875rem; color: #9CA3AF; text-transform: uppercase;
+      letter-spacing: 0.05em; font-weight: 500;
+    }
+    .time-btn {
+      font-size: 0.75rem; padding: 0.4375rem 0.5rem; border-radius: 0.375rem;
+      border: 1px solid #E5E7EB; background: white; color: #6B7280;
+      cursor: pointer; text-align: left; transition: all 0.15s; user-select: none;
+    }
+    .time-btn:hover { border-color: #9CA3AF; color: #0F0F0F; }
+    .time-btn.selected { border-color: #0F0F0F; background: #0F0F0F; color: white; }
+
+    /* Booking form reveal — animates height without JS measuring */
+    .reveal { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+    .reveal.open { grid-template-rows: 1fr; }
+    .reveal > div { overflow: hidden; min-height: 0; }
 
     /* Weekly availability calendar */
     .cal-cell { height: 1.5rem; border-radius: 0.375rem; border: 1px solid transparent; position: relative; }
@@ -734,38 +748,49 @@
       </div>
 
       <div class="grid md:grid-cols-[3fr_2fr] gap-10 items-start">
-        <div class="scroll-reveal space-y-6">
-          <div>
-            <p class="text-xs text-subtle uppercase tracking-widest mb-3">Availability <span class="normal-case">(PH time · GMT+8)</span></p>
-            <div id="slot-grid" class="flex flex-wrap gap-2"></div>
-            <p class="text-[11px] text-subtle mt-3 leading-relaxed">All times PHT (GMT+8) · 7–11 AM overlaps with AU/NZ business hours · 6–8 PM overlaps with UK afternoon · Schedule adjusts when semester resumes — slots will be updated accordingly.</p>
-          </div>
-          <div class="space-y-4">
-            <div class="hp-field" aria-hidden="true">
-              <input name="_hp_book" type="text" tabindex="-1" autocomplete="off">
-            </div>
+        <div class="scroll-reveal">
+          <p class="text-xs text-subtle uppercase tracking-widest mb-3">Availability <span class="normal-case">(PH time · GMT+8)</span></p>
+          <div id="slot-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
+          <p class="text-[11px] text-subtle mt-3 leading-relaxed">All times PHT (GMT+8) · 7–11 AM overlaps with AU/NZ business hours · 6–8 PM overlaps with UK afternoon · Schedule adjusts when semester resumes — slots will be updated accordingly.</p>
+
+          <button id="book-cta" type="button" disabled onclick="revealBookingForm()"
+                  class="mt-4 w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg transition-all duration-200 hover:bg-zinc-800 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none">
+            Book this slot
+          </button>
+
+          <div id="booking-reveal" class="reveal">
             <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Name</label>
-              <input id="book-name" type="text" class="form-input" placeholder="Your name" autocomplete="name">
+              <div id="booking-form" class="space-y-4 pt-6">
+                <div class="hp-field" aria-hidden="true">
+                  <input name="_hp_book" type="text" tabindex="-1" autocomplete="off">
+                </div>
+                <div>
+                  <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Name</label>
+                  <input id="book-name" type="text" class="form-input" placeholder="Your name" autocomplete="name">
+                </div>
+                <div>
+                  <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Email</label>
+                  <input id="book-email" type="email" class="form-input" placeholder="you@example.com" autocomplete="email">
+                </div>
+                <div>
+                  <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Company / Project <span class="normal-case text-subtle">(optional)</span></label>
+                  <input id="book-company" type="text" class="form-input" placeholder="Optional">
+                </div>
+                <div>
+                  <label class="block text-xs text-subtle mb-1.5">Notes</label>
+                  <textarea id="book-notes" class="form-input" rows="3" placeholder="What would you like to discuss?"></textarea>
+                </div>
+                <p id="book-error" class="hidden text-xs text-red-500"></p>
+                <button id="book-submit" type="button" onclick="submitBooking()"
+                        class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed">
+                  Request this time
+                </button>
+              </div>
+              <div id="booking-success" class="hidden text-center py-6">
+                <div class="w-9 h-9 mx-auto mb-3 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">✓</div>
+                <p class="text-sm text-ink font-medium">Request sent — I'll confirm within 24 hours.</p>
+              </div>
             </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Email</label>
-              <input id="book-email" type="email" class="form-input" placeholder="you@example.com" autocomplete="email">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Company / Project <span class="normal-case text-subtle">(optional)</span></label>
-              <input id="book-company" type="text" class="form-input" placeholder="Optional">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Notes</label>
-              <textarea id="book-notes" class="form-input" rows="3" placeholder="What would you like to discuss?"></textarea>
-            </div>
-            <p id="book-error"   class="hidden text-xs text-red-500"></p>
-            <p id="book-success" class="hidden text-xs text-green-600">Request sent! I'll confirm by email.</p>
-            <button onclick="submitBooking()"
-                    class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
-              Request this time
-            </button>
           </div>
         </div>
         <div class="scroll-reveal">
@@ -1013,21 +1038,51 @@
     calcEstimate();
 
     // ─── BOOK A CALL SLOTS ───────────────────────────────────────────────────────
-    let selectedSlots = [];
-    const slotGrid    = document.getElementById('slot-grid');
+    const DAY_ORDER  = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const slotsByDay = new Map();
     AVAILABILITY_SLOTS.forEach(slot => {
-      const chip = document.createElement('button');
-      chip.type = 'button';
-      chip.className = 'slot-chip';
-      chip.textContent = slot;
-      chip.addEventListener('click', () => {
-        chip.classList.toggle('selected');
-        selectedSlots = chip.classList.contains('selected')
-          ? [...selectedSlots, slot]
-          : selectedSlots.filter(s => s !== slot);
-      });
-      slotGrid.appendChild(chip);
+      const [day, ...rest] = slot.split(' ');
+      if (!slotsByDay.has(day)) slotsByDay.set(day, []);
+      slotsByDay.get(day).push({ slot, time: rest.join(' ').replace(' (PHT)', '') });
     });
+
+    let selectedSlot = null;
+    const slotGrid = document.getElementById('slot-grid');
+    const bookCta  = document.getElementById('book-cta');
+
+    DAY_ORDER.filter(day => slotsByDay.has(day)).forEach(day => {
+      const card = document.createElement('div');
+      card.className = 'day-card';
+
+      const label = document.createElement('p');
+      label.className = 'day-card-label';
+      label.textContent = day;
+      card.appendChild(label);
+
+      slotsByDay.get(day).forEach(({ slot, time }) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'time-btn';
+        btn.textContent = time;
+        btn.addEventListener('click', () => {
+          const wasSelected = selectedSlot === slot;
+          document.querySelectorAll('.time-btn.selected').forEach(b => b.classList.remove('selected'));
+          document.querySelectorAll('.day-card.selected').forEach(c => c.classList.remove('selected'));
+          selectedSlot = wasSelected ? null : slot;
+          if (selectedSlot) { btn.classList.add('selected'); card.classList.add('selected'); }
+          bookCta.disabled = !selectedSlot;
+        });
+        card.appendChild(btn);
+      });
+
+      slotGrid.appendChild(card);
+    });
+
+    function revealBookingForm() {
+      if (!selectedSlot) return;
+      document.getElementById('booking-reveal').classList.add('open');
+      bookCta.classList.add('hidden');
+    }
 
     // ─── SHARED SUBMIT ───────────────────────────────────────────────────────────
     async function submitInquiry(payload) {
@@ -1068,20 +1123,31 @@
       const hp = document.querySelector('[name="_hp_book"]');
       if (hp && hp.value) return; // honeypot triggered — silently discard
       const err = document.getElementById('book-error');
-      const suc = document.getElementById('book-success');
-      err.classList.add('hidden'); suc.classList.add('hidden');
+      err.classList.add('hidden');
       const name  = document.getElementById('book-name').value.trim();
       const email = document.getElementById('book-email').value.trim();
       if (!name || !email) { err.textContent = 'Please fill in your name and email.'; err.classList.remove('hidden'); return; }
-      if (!selectedSlots.length) { err.textContent = 'Please select at least one time slot.'; err.classList.remove('hidden'); return; }
-      const ok = await submitInquiry({
-        source:  'book-a-call',
-        name, email,
-        company: document.getElementById('book-company').value.trim(),
-        slots:   selectedSlots.join(', '),
-        notes:   document.getElementById('book-notes').value.trim()
-      });
-      if (ok) suc.classList.remove('hidden');
+      if (!selectedSlot) { err.textContent = 'Please select a time slot.'; err.classList.remove('hidden'); return; }
+
+      const btn = document.getElementById('book-submit');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        await submitInquiry({
+          source:  'book-a-call',
+          name, email,
+          company: document.getElementById('book-company').value.trim(),
+          slot:    selectedSlot,
+          notes:   document.getElementById('book-notes').value.trim()
+        });
+        document.getElementById('booking-form').classList.add('hidden');
+        document.getElementById('booking-success').classList.remove('hidden');
+      } catch {
+        err.textContent = "Something went wrong. Try emailing me directly at opnzrs@gmail.com";
+        err.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Request this time';
+      }
     }
 
     // ─── CONTACT FORM SUBMIT ─────────────────────────────────────────────────────
