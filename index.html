@@ -667,7 +667,12 @@
             <p id="est-range" class="text-3xl font-bold text-ink mb-2">$220 – $330</p>
             <p id="est-features" class="text-xs text-muted mb-4 leading-relaxed">No add-ons selected.</p>
             <p class="text-xs text-subtle leading-relaxed mb-5">Rough estimate only — not a final quote. Student commission work may be priced differently from business or automation builds. Final pricing confirmed after an initial call.</p>
-            <button onclick="submitEstimate()"
+            <div class="space-y-3 mb-4">
+              <input id="est-name" type="text" class="form-input" placeholder="Your name">
+              <input id="est-email" type="email" class="form-input" placeholder="your@email.com">
+            </div>
+            <p id="est-error" class="hidden text-xs text-red-500 mb-3"></p>
+            <button id="est-submit" onclick="submitEstimate()"
                     class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
               Send this estimate as an inquiry
             </button>
@@ -1127,15 +1132,26 @@
     async function submitEstimate() {
       const sel     = id => document.getElementById(id);
       const optText = id => sel(id).options[sel(id).selectedIndex].text;
+      const err     = sel('est-error');
+      err.classList.add('hidden');
+      const name  = sel('est-name').value.trim();
+      const email = sel('est-email').value.trim();
+      if (!name || !email) {
+        err.textContent = 'Please fill in your name and email.'; err.classList.remove('hidden'); return;
+      }
       const ok = await submitInquiry({
         source:     'project-estimator',
+        name, email,
         type:       optText('est-type'),
         complexity: optText('est-complexity'),
         timeline:   optText('est-timeline'),
         range:      sel('est-range').textContent,
         features:   sel('est-features').textContent
       });
-      if (ok) document.getElementById('est-success').classList.remove('hidden');
+      if (ok) {
+        sel('est-submit').classList.add('hidden');
+        sel('est-success').classList.remove('hidden');
+      }
     }
 
     // ─── BOOKING SUBMIT ──────────────────────────────────────────────────────────
