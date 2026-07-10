@@ -88,14 +88,8 @@
     .cal-cell { height: 1.5rem; border-radius: 0.375rem; border: 1px solid transparent; position: relative; }
     .cal-free    { background: #FFFBEB; border-color: #FDE68A; }
     .cal-busy    { background: #F3F4F6; border-color: #E5E7EB; }
-    .cal-limited { background: #EFF6FF; border-color: #BFDBFE; }
-    .cal-note::after {
-      content: ''; position: absolute; top: 2px; right: 2px;
-      width: 4px; height: 4px; border-radius: 9999px; background: #92400E;
-    }
     .cal-dot-free    { background: #F5A623; }
     .cal-dot-busy    { background: #D1D5DB; }
-    .cal-dot-limited { background: #BFDBFE; border: 1px solid #93C5FD; }
 
     /* Form */
     .form-input {
@@ -706,38 +700,36 @@
           <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Sat</div>
           <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Sun</div>
 
-          <div class="text-[10px] sm:text-xs text-subtle flex items-center">Morning</div>
-          <div class="cal-cell cal-busy" title="Classes"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-busy" title="Classes"></div>
-          <div class="cal-cell cal-busy" title="Classes"></div>
-          <div class="cal-cell cal-busy" title="Classes"></div>
+          <div class="text-[10px] sm:text-xs text-subtle flex items-center">7–11 AM</div>
           <div class="cal-cell cal-free" title="Available"></div>
           <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-busy" title="Unavailable"></div>
 
-          <div class="text-[10px] sm:text-xs text-subtle flex items-center">Afternoon</div>
-          <div class="cal-cell cal-busy" title="Classes"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-busy" title="Classes"></div>
-          <div class="cal-cell cal-busy" title="Classes"></div>
-          <div class="cal-cell cal-busy" title="Classes"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-limited" title="Limited"></div>
+          <div class="text-[10px] sm:text-xs text-subtle flex items-center">12–5 PM</div>
+          <div class="cal-cell cal-busy" title="Unavailable"></div>
+          <div class="cal-cell cal-busy" title="Unavailable"></div>
+          <div class="cal-cell cal-busy" title="Unavailable"></div>
+          <div class="cal-cell cal-busy" title="Unavailable"></div>
+          <div class="cal-cell cal-busy" title="Unavailable"></div>
+          <div class="cal-cell cal-busy" title="Unavailable"></div>
+          <div class="cal-cell cal-busy" title="Unavailable"></div>
 
-          <div class="text-[10px] sm:text-xs text-subtle flex items-center">Evening</div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free cal-note" title="Available — less preferred, heavy class day"></div>
+          <div class="text-[10px] sm:text-xs text-subtle flex items-center">6–8 PM</div>
           <div class="cal-cell cal-free" title="Available"></div>
           <div class="cal-cell cal-free" title="Available"></div>
           <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-limited" title="Limited"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-busy" title="Unavailable"></div>
         </div>
         <div class="flex flex-wrap items-center gap-4 mt-4 text-[11px] sm:text-xs text-subtle">
           <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full cal-dot-free"></span> Available</span>
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full cal-dot-busy"></span> Classes</span>
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full cal-dot-limited"></span> Limited</span>
-          <span class="text-subtle">* less preferred — heavy class day</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full cal-dot-busy"></span> Unavailable</span>
         </div>
       </div>
 
@@ -746,7 +738,7 @@
           <div>
             <p class="text-xs text-subtle uppercase tracking-widest mb-3">Availability <span class="normal-case">(PH time · GMT+8)</span></p>
             <div id="slot-grid" class="flex flex-wrap gap-2"></div>
-            <p class="text-[11px] text-subtle mt-3 leading-relaxed">All times are Philippine Standard Time (PHT, GMT+8). Saturday morning overlaps with US Friday evening. Thu–Fri evenings overlap with AU/NZ morning.</p>
+            <p class="text-[11px] text-subtle mt-3 leading-relaxed">All times PHT (GMT+8) · 7–11 AM overlaps with AU/NZ business hours · 6–8 PM overlaps with UK afternoon · Schedule adjusts when semester resumes — slots will be updated accordingly.</p>
           </div>
           <div class="space-y-4">
             <div class="hp-field" aria-hidden="true">
@@ -884,19 +876,18 @@
     const TASKBILL_URL  = "https://taskbill.zrsdev.com";
     // TODO: Edit this array to update available call slots (PH time, GMT+8)
     const AVAILABILITY_SLOTS = [
-      // Tuesday — most open day
-      "Tue 10 AM–12 PM (PHT)",
-      "Tue 2–5 PM (PHT)",
-      "Tue 7–9 PM (PHT)",
-      // Thursday evening (after lab ends + buffer)
-      "Thu 7–9 PM (PHT)",
-      // Friday evening (after lab ends + buffer)
-      "Fri 7–9 PM (PHT)",
-      // Saturday — second best day
-      "Sat 9 AM–12 PM (PHT)",
-      "Sat 2–5 PM (PHT)",
-      // Sunday — limited, rest/study day
-      "Sun 10 AM–12 PM (PHT)",
+      "Mon 7–11 AM (PHT)",
+      "Tue 7–11 AM (PHT)",
+      "Wed 7–11 AM (PHT)",
+      "Thu 7–11 AM (PHT)",
+      "Fri 7–11 AM (PHT)",
+      "Sat 7–11 AM (PHT)",
+      "Mon 6–8 PM (PHT)",
+      "Tue 6–8 PM (PHT)",
+      "Wed 6–8 PM (PHT)",
+      "Thu 6–8 PM (PHT)",
+      "Fri 6–8 PM (PHT)",
+      "Sat 6–8 PM (PHT)",
     ];
     // Certifications in progress — fill in `date` + `credentialUrl` once each is earned
     const CERTIFICATIONS = [
