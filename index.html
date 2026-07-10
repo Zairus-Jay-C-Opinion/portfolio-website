@@ -84,6 +84,19 @@
     .slot-chip:hover { border-color: #9CA3AF; color: #0F0F0F; }
     .slot-chip.selected { border-color: #0F0F0F; color: #0F0F0F; background: #F9FAFB; }
 
+    /* Weekly availability calendar */
+    .cal-cell { height: 1.5rem; border-radius: 0.375rem; border: 1px solid transparent; position: relative; }
+    .cal-free    { background: #FFFBEB; border-color: #FDE68A; }
+    .cal-busy    { background: #F3F4F6; border-color: #E5E7EB; }
+    .cal-limited { background: #EFF6FF; border-color: #BFDBFE; }
+    .cal-note::after {
+      content: ''; position: absolute; top: 2px; right: 2px;
+      width: 4px; height: 4px; border-radius: 9999px; background: #92400E;
+    }
+    .cal-dot-free    { background: #F5A623; }
+    .cal-dot-busy    { background: #D1D5DB; }
+    .cal-dot-limited { background: #BFDBFE; border: 1px solid #93C5FD; }
+
     /* Form */
     .form-input {
       width: 100%; border: 1px solid #E5E7EB; border-radius: 0.5rem;
@@ -655,13 +668,85 @@
     <section id="book" class="pb-16 max-w-5xl mx-auto px-6">
       <div class="border-t border-border pt-12 mb-8">
         <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Book a Call</h2>
-        <p class="scroll-reveal text-sm text-muted max-w-lg">Pick a time that works, fill in your details, and I'll confirm by email. This is a request — not an instant booking.</p>
+        <p class="scroll-reveal text-sm text-muted max-w-lg">Pick a slot that works for you — I'll confirm by email within 24 hours. All times are Philippine Standard Time (GMT+8). These are 30-minute calls to discuss your project before committing to anything.</p>
       </div>
+
+      <!-- Scope disclosure -->
+      <div class="scroll-reveal border border-border rounded-xl p-5 mb-8 grid sm:grid-cols-2 gap-5">
+        <div>
+          <p class="text-xs text-subtle uppercase tracking-widest mb-2.5">Currently accepting</p>
+          <ul class="space-y-1.5 text-sm text-ink">
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> Landing pages &amp; small business sites</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> Web apps &amp; internal dashboards</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> AI chatbot &amp; API integrations</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> n8n automation workflows</li>
+            <li class="flex gap-2"><span class="text-emerald-600">✓</span> Student capstone / org websites</li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs text-subtle uppercase tracking-widest mb-2.5">Not a fit right now</p>
+          <ul class="space-y-1.5 text-sm text-muted">
+            <li class="flex gap-2"><span class="text-red-400">✗</span> Enterprise-scale or multi-team systems</li>
+            <li class="flex gap-2"><span class="text-red-400">✗</span> Full-time dedicated contracts</li>
+            <li class="flex gap-2"><span class="text-red-400">✗</span> Projects requiring &gt;3 months continuous work</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Weekly availability calendar (visual only, non-interactive) -->
+      <div class="scroll-reveal border border-border rounded-xl p-5 mb-8">
+        <p class="text-xs text-subtle uppercase tracking-widest mb-3">Weekly pattern</p>
+        <div class="grid grid-cols-[44px_repeat(7,1fr)] sm:grid-cols-[64px_repeat(7,1fr)] gap-1 sm:gap-1.5">
+          <div></div>
+          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Mon</div>
+          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Tue</div>
+          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Wed</div>
+          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Thu</div>
+          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Fri</div>
+          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Sat</div>
+          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Sun</div>
+
+          <div class="text-[10px] sm:text-xs text-subtle flex items-center">Morning</div>
+          <div class="cal-cell cal-busy" title="Classes"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-busy" title="Classes"></div>
+          <div class="cal-cell cal-busy" title="Classes"></div>
+          <div class="cal-cell cal-busy" title="Classes"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+
+          <div class="text-[10px] sm:text-xs text-subtle flex items-center">Afternoon</div>
+          <div class="cal-cell cal-busy" title="Classes"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-busy" title="Classes"></div>
+          <div class="cal-cell cal-busy" title="Classes"></div>
+          <div class="cal-cell cal-busy" title="Classes"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-limited" title="Limited"></div>
+
+          <div class="text-[10px] sm:text-xs text-subtle flex items-center">Evening</div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free cal-note" title="Available — less preferred, heavy class day"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-free" title="Available"></div>
+          <div class="cal-cell cal-limited" title="Limited"></div>
+        </div>
+        <div class="flex flex-wrap items-center gap-4 mt-4 text-[11px] sm:text-xs text-subtle">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full cal-dot-free"></span> Available</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full cal-dot-busy"></span> Classes</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full cal-dot-limited"></span> Limited</span>
+          <span class="text-subtle">* less preferred — heavy class day</span>
+        </div>
+      </div>
+
       <div class="grid md:grid-cols-[3fr_2fr] gap-10 items-start">
         <div class="scroll-reveal space-y-6">
           <div>
             <p class="text-xs text-subtle uppercase tracking-widest mb-3">Availability <span class="normal-case">(PH time · GMT+8)</span></p>
             <div id="slot-grid" class="flex flex-wrap gap-2"></div>
+            <p class="text-[11px] text-subtle mt-3 leading-relaxed">All times are Philippine Standard Time (PHT, GMT+8). Saturday morning overlaps with US Friday evening. Thu–Fri evenings overlap with AU/NZ morning.</p>
           </div>
           <div class="space-y-4">
             <div class="hp-field" aria-hidden="true">
@@ -799,8 +884,19 @@
     const TASKBILL_URL  = "https://taskbill.zrsdev.com";
     // TODO: Edit this array to update available call slots (PH time, GMT+8)
     const AVAILABILITY_SLOTS = [
-      "Mon 7–9 PM", "Tue 7–9 PM", "Wed 7–9 PM", "Thu 7–9 PM", "Fri 7–9 PM",
-      "Sat 10AM–1PM", "Sat 2–5PM", "Sun 10AM–1PM", "Sun 2–5PM"
+      // Tuesday — most open day
+      "Tue 10 AM–12 PM (PHT)",
+      "Tue 2–5 PM (PHT)",
+      "Tue 7–9 PM (PHT)",
+      // Thursday evening (after lab ends + buffer)
+      "Thu 7–9 PM (PHT)",
+      // Friday evening (after lab ends + buffer)
+      "Fri 7–9 PM (PHT)",
+      // Saturday — second best day
+      "Sat 9 AM–12 PM (PHT)",
+      "Sat 2–5 PM (PHT)",
+      // Sunday — limited, rest/study day
+      "Sun 10 AM–12 PM (PHT)",
     ];
     // Certifications in progress — fill in `date` + `credentialUrl` once each is earned
     const CERTIFICATIONS = [
