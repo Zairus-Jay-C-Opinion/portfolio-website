@@ -191,7 +191,7 @@
             2nd-year CS student at BatStateU who builds AI-assisted software — full-stack apps wired with Claude and Gemini, plus agentic n8n workflows that automate the work businesses still do by hand. Open to freelance development and automation builds.
           </p>
           <div class="fade-up flex flex-wrap gap-3 mb-6" style="animation-delay:0.24s">
-            <a href="#contact"
+            <a href="#hire"
                class="inline-flex items-center px-4 py-2 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
               Hire Me
             </a>
@@ -676,6 +676,7 @@
     <section id="book" class="pb-16 max-w-5xl mx-auto px-6">
       <div class="border-t border-border pt-12 mb-8">
         <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Book a Call</h2>
+        <p class="scroll-reveal text-xs text-subtle mb-2">For project discussions only — if you're looking to hire, use the Hire Me form below. <a href="#hire" class="underline underline-offset-2 hover:text-ink transition-colors duration-200">Looking to hire? →</a></p>
         <p class="scroll-reveal text-sm text-muted max-w-lg">Pick a slot that works for you — I'll confirm by email within 24 hours. All times are Philippine Standard Time (GMT+8). These are 30-minute calls to discuss your project before committing to anything.</p>
       </div>
 
@@ -807,73 +808,121 @@
       </div>
     </section>
 
-    <!-- CONTACT (nav order: 5th) — inquiry form above the existing contact links -->
+    <!-- CONTACT (nav order: 5th) — commission routing + hire inquiry form + contact links -->
     <section id="contact" class="pb-28 max-w-5xl mx-auto px-6">
-      <div class="border-t border-border pt-12 grid md:grid-cols-2 gap-12 items-start">
-        <div>
-          <h2 class="scroll-reveal text-3xl md:text-4xl font-bold tracking-tight text-ink leading-tight mb-4">
-            Open to part-time remote roles.
-          </h2>
-          <p class="scroll-reveal text-sm text-muted leading-relaxed">
-            Available for freelance work — full-stack apps, AI-integrated products, and automation systems that replace manual busywork.
-          </p>
-        </div>
 
-        <div class="scroll-reveal flex flex-col gap-6">
-          <form id="contact-form" class="space-y-4" onsubmit="event.preventDefault(); submitContact();">
-            <div class="hp-field" aria-hidden="true">
-              <input name="_hp_contact" type="text" tabindex="-1" autocomplete="off">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Name</label>
-              <input id="contact-name" type="text" class="form-input" placeholder="Your name" autocomplete="name">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Email</label>
-              <input id="contact-email" type="email" class="form-input" placeholder="you@example.com" autocomplete="email">
-            </div>
-            <div>
-              <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Message</label>
-              <textarea id="contact-message" class="form-input" rows="4" placeholder="What are you looking to build?"></textarea>
-            </div>
-            <p id="contact-error" class="hidden text-xs text-red-500"></p>
-            <div id="contact-submit-row">
-              <button type="submit"
-                      class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
-                Send message
+      <!-- Subsection A: Commission a Project — routes back to estimator/booking -->
+      <div id="commission" class="border-t border-border pt-12 mb-16">
+        <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Commission a Project</h2>
+        <p class="scroll-reveal text-sm text-muted max-w-lg mb-5">Have something specific you want built? Start with the estimator to scope your project and get a rough price range, then book a call to talk through the details.</p>
+        <div class="scroll-reveal flex flex-wrap gap-3">
+          <a href="#estimate"
+             class="inline-flex items-center px-4 py-2 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
+            Get an estimate →
+          </a>
+          <a href="#book"
+             class="inline-flex items-center px-4 py-2 border border-border text-ink text-sm font-medium rounded-lg hover:border-zinc-400 transition-colors duration-200">
+            Book a call →
+          </a>
+        </div>
+      </div>
+
+      <!-- Subsection B: Hire Me — inquiry form for employment -->
+      <div id="hire" class="border-t border-border pt-12 mb-16">
+        <div class="grid md:grid-cols-2 gap-12 items-start">
+          <div>
+            <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Hire Me</h2>
+            <p class="scroll-reveal text-sm text-muted leading-relaxed max-w-md">Looking for a part-time remote developer? I'm available for ongoing work — web apps, AI integrations, and automation builds. Up to 20 hours per week, async-friendly, available Mon–Sat.</p>
+          </div>
+
+          <div class="scroll-reveal">
+            <div id="hire-form" class="space-y-4">
+              <div class="hp-field" aria-hidden="true">
+                <input name="_hp_hire" type="text" tabindex="-1" autocomplete="off">
+              </div>
+              <div>
+                <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Name</label>
+                <input id="hire-name" type="text" class="form-input" placeholder="Your name" autocomplete="name">
+              </div>
+              <div>
+                <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Email</label>
+                <input id="hire-email" type="email" class="form-input" placeholder="you@example.com" autocomplete="email">
+              </div>
+              <div>
+                <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Role / position title</label>
+                <input id="hire-role" type="text" class="form-input" placeholder="e.g. Junior Developer, Automation Builder">
+              </div>
+              <div>
+                <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Company / team name</label>
+                <input id="hire-company" type="text" class="form-input" placeholder="Your company or team">
+              </div>
+              <div>
+                <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Hours per week expected</label>
+                <select id="hire-hours" class="form-input">
+                  <option value="Under 10hrs">Under 10hrs</option>
+                  <option value="10–20hrs">10–20hrs</option>
+                  <option value="20hrs+">20hrs+</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs text-subtle uppercase tracking-widest mb-2">Brief about the role</label>
+                <textarea id="hire-brief" class="form-input" rows="3" placeholder="What would I be working on? What does the team look like?"></textarea>
+              </div>
+              <p id="hire-error" class="hidden text-xs text-red-500"></p>
+              <button id="hire-submit" type="button" onclick="submitHire()"
+                      class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed">
+                Send application
               </button>
             </div>
-            <p id="contact-success" class="hidden text-xs text-green-600 text-center">Sent — I'll get back to you soon.</p>
-          </form>
+            <div id="hire-success" class="hidden text-center py-6">
+              <div class="w-9 h-9 mx-auto mb-3 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">✓</div>
+              <p class="text-sm text-ink font-medium">Sent — I'll review and get back to you within 48 hours.</p>
+            </div>
 
-          <div class="flex flex-col gap-0.5 md:items-end border-t border-border pt-6">
-            <a href="mailto:opnzrs@gmail.com"
-               class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
-              opnzrs@gmail.com
-            </a>
-            <a href="tel:+639989273268"
-               class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
-              +63 998 927 3268
-            </a>
-            <a href="https://www.onlinejobs.ph" target="_blank" rel="noopener"
-               class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
-              OnlineJobs.ph profile
-            </a>
-            <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener"
-               class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center md:justify-end">
-              GitHub profile
-            </a>
-            <!-- Social links — shown by JS once config values are set -->
-            <!-- TODO: fill in social URLs -->
-            <a id="social-instagram" href="#" target="_blank" rel="noopener"
-               class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center md:justify-end">Instagram</a>
-            <a id="social-facebook" href="#" target="_blank" rel="noopener"
-               class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center md:justify-end">Facebook</a>
-            <a id="social-x" href="#" target="_blank" rel="noopener"
-               class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center md:justify-end">X / Twitter</a>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-6 pt-6 border-t border-border text-sm">
+              <a href="https://www.onlinejobs.ph/jobseekers/info/5022730" target="_blank" rel="noopener"
+                 class="text-muted hover:text-ink transition-colors duration-200">OnlineJobs.ph profile</a>
+              <span class="text-subtle">·</span>
+              <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener"
+                 class="text-muted hover:text-ink transition-colors duration-200">GitHub</a>
+              <span class="text-subtle">·</span>
+              <a href="mailto:opnzrs@gmail.com" class="text-muted hover:text-ink transition-colors duration-200">Email</a>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Find me here -->
+      <div class="border-t border-border pt-10">
+        <p class="scroll-reveal text-xs text-subtle uppercase tracking-widest mb-4">Find me here</p>
+        <div class="scroll-reveal flex flex-col gap-2 md:flex-row md:flex-wrap md:items-center md:gap-x-6 md:gap-y-2">
+          <a href="mailto:opnzrs@gmail.com"
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center">
+            opnzrs@gmail.com
+          </a>
+          <a href="tel:+639989273268"
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center">
+            +63 998 927 3268
+          </a>
+          <a href="https://www.onlinejobs.ph" target="_blank" rel="noopener"
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center">
+            OnlineJobs.ph profile
+          </a>
+          <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener"
+             class="text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] flex items-center">
+            GitHub profile
+          </a>
+          <!-- Social links — shown by JS once config values are set -->
+          <!-- TODO: fill in social URLs -->
+          <a id="social-instagram" href="#" target="_blank" rel="noopener"
+             class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center">Instagram</a>
+          <a id="social-facebook" href="#" target="_blank" rel="noopener"
+             class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center">Facebook</a>
+          <a id="social-x" href="#" target="_blank" rel="noopener"
+             class="hidden text-sm text-muted hover:text-ink transition-colors duration-200 min-h-[44px] items-center">X / Twitter</a>
+        </div>
+      </div>
+
     </section>
 
   </main>
@@ -1150,22 +1199,38 @@
       }
     }
 
-    // ─── CONTACT FORM SUBMIT ─────────────────────────────────────────────────────
-    async function submitContact() {
-      const hp = document.querySelector('[name="_hp_contact"]');
+    // ─── HIRE ME SUBMIT ──────────────────────────────────────────────────────────
+    async function submitHire() {
+      const hp = document.querySelector('[name="_hp_hire"]');
       if (hp && hp.value) return; // honeypot triggered — silently discard
-      const err = document.getElementById('contact-error');
-      const suc = document.getElementById('contact-success');
-      err.classList.add('hidden'); suc.classList.add('hidden');
-      const name    = document.getElementById('contact-name').value.trim();
-      const email   = document.getElementById('contact-email').value.trim();
-      const message = document.getElementById('contact-message').value.trim();
-      if (!name || !email || !message) { err.textContent = 'Please fill in your name, email, and message.'; err.classList.remove('hidden'); return; }
-      const ok = await submitInquiry({ source: 'contact-form', name, email, message });
-      if (ok) {
-        document.getElementById('contact-submit-row').classList.add('hidden');
-        suc.classList.remove('hidden');
-        document.getElementById('contact-form').reset();
+      const err = document.getElementById('hire-error');
+      err.classList.add('hidden');
+      const name    = document.getElementById('hire-name').value.trim();
+      const email   = document.getElementById('hire-email').value.trim();
+      const role    = document.getElementById('hire-role').value.trim();
+      const company = document.getElementById('hire-company').value.trim();
+      const brief   = document.getElementById('hire-brief').value.trim();
+      if (!name || !email || !role || !company || !brief) {
+        err.textContent = 'Please fill in all fields.'; err.classList.remove('hidden'); return;
+      }
+
+      const btn = document.getElementById('hire-submit');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        await submitInquiry({
+          kind: 'hire',
+          name, email, role, company,
+          hours: document.getElementById('hire-hours').value,
+          brief
+        });
+        document.getElementById('hire-form').classList.add('hidden');
+        document.getElementById('hire-success').classList.remove('hidden');
+      } catch {
+        err.textContent = "Something went wrong. Try emailing me directly at opnzrs@gmail.com";
+        err.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Send application';
       }
     }
   </script>
