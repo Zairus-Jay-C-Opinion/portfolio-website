@@ -99,7 +99,7 @@
     .reveal > div { overflow: hidden; min-height: 0; }
 
     /* Weekly availability calendar */
-    .cal-cell { height: 1.5rem; border-radius: 0.375rem; border: 1px solid transparent; position: relative; }
+    .cal-cell { height: 1.125rem; border-radius: 0.25rem; border: 1px solid transparent; position: relative; }
     .cal-free    { background: #FFFBEB; border-color: #FDE68A; }
     .cal-busy    { background: #F3F4F6; border-color: #E5E7EB; }
     .cal-dot-free    { background: #F5A623; }
@@ -595,7 +595,12 @@
     <section id="services" class="pb-16 max-w-5xl mx-auto px-6">
       <div id="estimate" class="border-t border-border pt-12 mb-8">
         <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Project Estimator</h2>
-        <p class="scroll-reveal text-sm text-muted">Get a rough cost range — configure your project below and the estimate updates live.</p>
+        <p class="scroll-reveal text-sm text-muted mb-4">Get a rough cost range — configure your project below and the estimate updates live.</p>
+        <div class="scroll-reveal flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-x-5 gap-y-1.5 text-xs text-subtle">
+          <span class="flex items-center gap-1.5"><span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-zinc-100 text-[10px] font-medium text-muted">1</span> Configure your project below and get a rough price range</span>
+          <span class="flex items-center gap-1.5"><span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-zinc-100 text-[10px] font-medium text-muted">2</span> Click "Send this estimate" — I'll receive your project details</span>
+          <span class="flex items-center gap-1.5"><span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-zinc-100 text-[10px] font-medium text-muted">3</span> Book a call to talk through the scope and confirm the quote</span>
+        </div>
       </div>
       <div class="grid md:grid-cols-[3fr_2fr] gap-10 items-start">
         <!-- Fields -->
@@ -677,7 +682,7 @@
       <div class="border-t border-border pt-12 mb-8">
         <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Book a Call</h2>
         <p class="scroll-reveal text-xs text-subtle mb-2">For project discussions only — if you're looking to hire, use the Hire Me form below. <a href="#hire" class="underline underline-offset-2 hover:text-ink transition-colors duration-200">Looking to hire? →</a></p>
-        <p class="scroll-reveal text-sm text-muted max-w-lg">Pick a slot that works for you — I'll confirm by email within 24 hours. All times are Philippine Standard Time (GMT+8). These are 30-minute calls to discuss your project before committing to anything.</p>
+        <p class="scroll-reveal text-sm text-muted max-w-lg">Pick a slot — I'll confirm within 24 hours with a Google Meet link. These are 20–30 min calls to discuss your project, timeline, and requirements. All times are Philippine Standard Time (GMT+8).</p>
       </div>
 
       <!-- Scope disclosure -->
@@ -702,53 +707,56 @@
         </div>
       </div>
 
-      <!-- Weekly availability calendar (visual only, non-interactive) -->
-      <div class="scroll-reveal border border-border rounded-xl p-5 mb-8">
-        <p class="text-xs text-subtle uppercase tracking-widest mb-3">Weekly pattern</p>
-        <div class="grid grid-cols-[44px_repeat(7,1fr)] sm:grid-cols-[64px_repeat(7,1fr)] gap-1 sm:gap-1.5">
-          <div></div>
-          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Mon</div>
-          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Tue</div>
-          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Wed</div>
-          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Thu</div>
-          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Fri</div>
-          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Sat</div>
-          <div class="text-center text-[10px] sm:text-xs text-subtle font-medium">Sun</div>
+      <!-- Calendar (reference) + slot picker, side by side on desktop -->
+      <div class="grid md:grid-cols-[11fr_9fr] gap-8 items-start">
 
-          <div class="text-[10px] sm:text-xs text-subtle flex items-center">7–11 AM</div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-busy" title="Unavailable"></div>
+        <!-- Weekly availability calendar (visual only, non-interactive, compact) -->
+        <div class="scroll-reveal border border-border rounded-xl p-4">
+          <p class="text-xs text-subtle uppercase tracking-widest mb-2.5">Weekly pattern</p>
+          <div class="grid grid-cols-[34px_repeat(7,1fr)] gap-1">
+            <div></div>
+            <div class="text-center text-[9px] text-subtle font-medium">Mon</div>
+            <div class="text-center text-[9px] text-subtle font-medium">Tue</div>
+            <div class="text-center text-[9px] text-subtle font-medium">Wed</div>
+            <div class="text-center text-[9px] text-subtle font-medium">Thu</div>
+            <div class="text-center text-[9px] text-subtle font-medium">Fri</div>
+            <div class="text-center text-[9px] text-subtle font-medium">Sat</div>
+            <div class="text-center text-[9px] text-subtle font-medium">Sun</div>
 
-          <div class="text-[10px] sm:text-xs text-subtle flex items-center">12–5 PM</div>
-          <div class="cal-cell cal-busy" title="Unavailable"></div>
-          <div class="cal-cell cal-busy" title="Unavailable"></div>
-          <div class="cal-cell cal-busy" title="Unavailable"></div>
-          <div class="cal-cell cal-busy" title="Unavailable"></div>
-          <div class="cal-cell cal-busy" title="Unavailable"></div>
-          <div class="cal-cell cal-busy" title="Unavailable"></div>
-          <div class="cal-cell cal-busy" title="Unavailable"></div>
+            <div class="text-[9px] text-subtle flex items-center">7–11</div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-busy" title="Unavailable"></div>
 
-          <div class="text-[10px] sm:text-xs text-subtle flex items-center">6–8 PM</div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-free" title="Available"></div>
-          <div class="cal-cell cal-busy" title="Unavailable"></div>
+            <div class="text-[9px] text-subtle flex items-center">12–5</div>
+            <div class="cal-cell cal-busy" title="Unavailable"></div>
+            <div class="cal-cell cal-busy" title="Unavailable"></div>
+            <div class="cal-cell cal-busy" title="Unavailable"></div>
+            <div class="cal-cell cal-busy" title="Unavailable"></div>
+            <div class="cal-cell cal-busy" title="Unavailable"></div>
+            <div class="cal-cell cal-busy" title="Unavailable"></div>
+            <div class="cal-cell cal-busy" title="Unavailable"></div>
+
+            <div class="text-[9px] text-subtle flex items-center">6–8</div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-free" title="Available"></div>
+            <div class="cal-cell cal-busy" title="Unavailable"></div>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 mt-3 text-[10px] text-subtle">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full cal-dot-free"></span> Available</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full cal-dot-busy"></span> Unavailable</span>
+          </div>
         </div>
-        <div class="flex flex-wrap items-center gap-4 mt-4 text-[11px] sm:text-xs text-subtle">
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full cal-dot-free"></span> Available</span>
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full cal-dot-busy"></span> Unavailable</span>
-        </div>
-      </div>
 
-      <div class="grid md:grid-cols-[3fr_2fr] gap-10 items-start">
+        <!-- Slot picker + booking form -->
         <div class="scroll-reveal">
           <p class="text-xs text-subtle uppercase tracking-widest mb-3">Availability <span class="normal-case">(PH time · GMT+8)</span></p>
           <div id="slot-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
@@ -794,40 +802,13 @@
             </div>
           </div>
         </div>
-        <div class="scroll-reveal">
-          <div class="border border-border rounded-xl p-6 space-y-4">
-            <div>
-              <p class="text-sm font-semibold text-ink mb-1">What to expect</p>
-              <p class="text-xs text-muted leading-relaxed">A 20–30 min call to discuss your project, timeline, and requirements. I'll send a confirmation email once I've checked availability.</p>
-            </div>
-            <div class="border-t border-border pt-4">
-              <p class="text-xs text-subtle leading-relaxed">Times are in Philippine Standard Time (GMT+8). I can propose an equivalent in your timezone if needed.</p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- CONTACT (nav order: 5th) — commission routing + hire inquiry form + contact links -->
+    <!-- CONTACT (nav order: 5th) — hire inquiry form + contact links -->
     <section id="contact" class="pb-28 max-w-5xl mx-auto px-6">
 
-      <!-- Subsection A: Commission a Project — routes back to estimator/booking -->
-      <div id="commission" class="border-t border-border pt-12 mb-16">
-        <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Commission a Project</h2>
-        <p class="scroll-reveal text-sm text-muted max-w-lg mb-5">Have something specific you want built? Start with the estimator to scope your project and get a rough price range, then book a call to talk through the details.</p>
-        <div class="scroll-reveal flex flex-wrap gap-3">
-          <a href="#estimate"
-             class="inline-flex items-center px-4 py-2 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200">
-            Get an estimate →
-          </a>
-          <a href="#book"
-             class="inline-flex items-center px-4 py-2 border border-border text-ink text-sm font-medium rounded-lg hover:border-zinc-400 transition-colors duration-200">
-            Book a call →
-          </a>
-        </div>
-      </div>
-
-      <!-- Subsection B: Hire Me — inquiry form for employment -->
+      <!-- Hire Me — inquiry form for employment -->
       <div id="hire" class="border-t border-border pt-12 mb-16">
         <div class="grid md:grid-cols-2 gap-12 items-start">
           <div>
@@ -871,22 +852,12 @@
               <p id="hire-error" class="hidden text-xs text-red-500"></p>
               <button id="hire-submit" type="button" onclick="submitHire()"
                       class="w-full py-2.5 bg-ink text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed">
-                Send application
+                Get in touch
               </button>
             </div>
             <div id="hire-success" class="hidden text-center py-6">
               <div class="w-9 h-9 mx-auto mb-3 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">✓</div>
               <p class="text-sm text-ink font-medium">Sent — I'll review and get back to you within 48 hours.</p>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-6 pt-6 border-t border-border text-sm">
-              <a href="https://www.onlinejobs.ph/jobseekers/info/5022730" target="_blank" rel="noopener"
-                 class="text-muted hover:text-ink transition-colors duration-200">OnlineJobs.ph profile</a>
-              <span class="text-subtle">·</span>
-              <a href="https://github.com/Zairus-Jay-C-Opinion" target="_blank" rel="noopener"
-                 class="text-muted hover:text-ink transition-colors duration-200">GitHub</a>
-              <span class="text-subtle">·</span>
-              <a href="mailto:opnzrs@gmail.com" class="text-muted hover:text-ink transition-colors duration-200">Email</a>
             </div>
           </div>
         </div>
@@ -1230,7 +1201,7 @@
         err.textContent = "Something went wrong. Try emailing me directly at opnzrs@gmail.com";
         err.classList.remove('hidden');
         btn.disabled = false;
-        btn.textContent = 'Send application';
+        btn.textContent = 'Get in touch';
       }
     }
   </script>
