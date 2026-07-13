@@ -504,7 +504,7 @@
           </div>
         </article>
 
-        <article class="project-row group opacity-60">
+        <article class="project-row scroll-reveal group">
           <div class="py-7 flex gap-5 md:gap-8">
             <div class="w-7 flex-shrink-0 pt-0.5 text-subtle">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -512,12 +512,30 @@
               </svg>
             </div>
             <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2 mb-2">
-                <h3 class="text-sm font-semibold text-ink">Telemetry Companion App</h3>
-                <span class="badge-wip">In Progress</span>
+              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
+                <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">Telemetry Companion App</h3>
+                <button type="button" class="mockup-toggle text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap flex-shrink-0" aria-expanded="false" data-label-show="View screenshots" data-label-hide="Hide screenshots">View screenshots</button>
               </div>
               <p class="text-sm text-muted leading-relaxed mb-3">iRacing telemetry and coaching app built for a sim racer. Real-time delta-to-PB HUD, post-session AI coaching via Gemini, tyre temperature advisor, and automatic setup file installation.</p>
               <p class="text-xs text-subtle">Python / FastAPI backend, React dashboard, PyQt6 HUD overlay</p>
+
+              <div class="mockup-gallery hidden mt-4 flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory">
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-40 sm:w-48 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="telemetry-hud.webp">
+                  <img src="telemetry-hud.webp" alt="In-sim HUD overlay showing delta-to-PB, relative timing, fuel, and standings during an iRacing session" class="w-full h-auto" loading="lazy">
+                </button>
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-40 sm:w-48 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="telemetry-dashboard.webp">
+                  <img src="telemetry-dashboard.webp" alt="Telemetry dashboard showing best lap, delta to PB, and AI-generated session summary with coaching tips" class="w-full h-auto" loading="lazy">
+                </button>
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-40 sm:w-48 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="telemetry-sessions.webp">
+                  <img src="telemetry-sessions.webp" alt="Sessions list showing best lap, delta to PB, and lap count for past sim racing sessions" class="w-full h-auto" loading="lazy">
+                </button>
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-40 sm:w-48 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="telemetry-session-detail.webp">
+                  <img src="telemetry-session-detail.webp" alt="Session detail view with sector deltas, tyre temperatures, and AI coaching notes for a single session" class="w-full h-auto" loading="lazy">
+                </button>
+                <button type="button" class="lightbox-trigger snap-start flex-shrink-0 w-40 sm:w-48 rounded-lg overflow-hidden hover:opacity-80 transition-opacity duration-200" data-full="telemetry-progress.webp">
+                  <img src="telemetry-progress.webp" alt="Progress view with weekly AI-generated reports and lap time trend charts per car and track" class="w-full h-auto" loading="lazy">
+                </button>
+              </div>
             </div>
           </div>
         </article>
