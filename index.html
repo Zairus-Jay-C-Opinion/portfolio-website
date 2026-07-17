@@ -636,14 +636,7 @@
                 <button type="button" class="mockup-toggle text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap flex-shrink-0" aria-expanded="false" data-label-show="View screenshots" data-label-hide="Hide screenshots">View screenshots</button>
               </div>
               <p class="text-xs text-subtle mb-3">Built for a food business owner</p>
-              <p class="text-sm text-muted leading-relaxed mb-3">The business owner was manually reconstructing a month of sales data by hand — reading daily totals off the POS dashboard and retyping them into Excel, once a month, for every product across every day. This automation pulls sales data directly from the Loyverse POS API, aggregates it by product and day (handling timezone conversion and month-boundary edge cases that naive approaches get wrong), and writes the results into the business's existing Excel report template — preserving all original formulas, formatting, and branding — with zero manual entry. Verified against the POS system's own official monthly export, it matched 100% of tracked products exactly, and in the process caught a systematic undercount in the manual process worth thousands of pesos in unrecorded sales.</p>
-              <ul class="text-xs text-subtle leading-relaxed mb-3 list-disc list-inside space-y-1">
-                <li>Paginated API integration with crash-resilient data aggregation</li>
-                <li>Timezone-aware date handling (UTC → PHT conversion across month boundaries)</li>
-                <li>Template-preserving Excel generation — formulas, formatting, and images intact</li>
-                <li>Automated cloud delivery, fully unattended after initial setup</li>
-                <li>Validated against an independent source of truth — 100% match confirmed</li>
-              </ul>
+              <p class="text-sm text-muted leading-relaxed mb-3">The business owner was manually reconstructing a month of sales data by hand — reading daily totals off the POS dashboard and retyping them into Excel, once a month, for every product across every day. This automation pulls sales data directly from the Loyverse POS API with paginated, crash-resilient requests, aggregates it by product and day (handling timezone conversion and month-boundary edge cases that naive approaches get wrong), and writes the results into the business's existing Excel report template — preserving all original formulas, formatting, and branding — before delivering the finished file to Google Drive fully unattended. Verified against the POS system's own official monthly export, it matched 100% of tracked products exactly, and in the process caught a systematic undercount in the manual process worth thousands of pesos in unrecorded sales.</p>
               <p class="text-xs text-subtle leading-relaxed">n8n, Loyverse API, Firebase Firestore, Python (openpyxl), Google Drive API, Cron</p>
 
               <div class="mockup-gallery hidden mt-4 flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory">
