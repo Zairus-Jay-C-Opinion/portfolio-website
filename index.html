@@ -627,6 +627,47 @@
           <div class="py-7 flex gap-5 md:gap-8">
             <div class="w-7 flex-shrink-0 pt-0.5 text-subtle">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-1">
+                <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">Automated POS Sales Reporting</h3>
+                <button type="button" class="mockup-toggle text-xs text-accent hover:underline underline-offset-2 whitespace-nowrap flex-shrink-0" aria-expanded="false" data-label-show="View screenshots" data-label-hide="Hide screenshots">View screenshots</button>
+              </div>
+              <p class="text-xs text-subtle mb-3">Built for a food business owner</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">The business owner was manually reconstructing a month of sales data by hand — reading daily totals off the POS dashboard and retyping them into Excel, once a month, for every product across every day. This automation pulls sales data directly from the Loyverse POS API, aggregates it by product and day (handling timezone conversion and month-boundary edge cases that naive approaches get wrong), and writes the results into the business's existing Excel report template — preserving all original formulas, formatting, and branding — with zero manual entry. Verified against the POS system's own official monthly export, it matched 100% of tracked products exactly, and in the process caught a systematic undercount in the manual process worth thousands of pesos in unrecorded sales.</p>
+              <ul class="text-xs text-subtle leading-relaxed mb-3 list-disc list-inside space-y-1">
+                <li>Paginated API integration with crash-resilient data aggregation</li>
+                <li>Timezone-aware date handling (UTC → PHT conversion across month boundaries)</li>
+                <li>Template-preserving Excel generation — formulas, formatting, and images intact</li>
+                <li>Automated cloud delivery, fully unattended after initial setup</li>
+                <li>Validated against an independent source of truth — 100% match confirmed</li>
+              </ul>
+              <p class="text-xs text-subtle leading-relaxed">n8n, Loyverse API, Firebase Firestore, Python (openpyxl), Google Drive API, Cron</p>
+
+              <div class="mockup-gallery hidden mt-4 flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory">
+                <div class="snap-start flex-shrink-0 w-40 sm:w-48 aspect-[4/3] rounded-lg border border-dashed border-border bg-[#F9FAFB] flex flex-col items-center justify-center gap-1.5 text-subtle">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/><path d="M8 5l1.5-2h5L16 5"/></svg>
+                  <span class="text-[10px] text-center leading-tight px-2">Screenshot coming soon</span>
+                </div>
+                <div class="snap-start flex-shrink-0 w-40 sm:w-48 aspect-[4/3] rounded-lg border border-dashed border-border bg-[#F9FAFB] flex flex-col items-center justify-center gap-1.5 text-subtle">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/><path d="M8 5l1.5-2h5L16 5"/></svg>
+                  <span class="text-[10px] text-center leading-tight px-2">Screenshot coming soon</span>
+                </div>
+                <div class="snap-start flex-shrink-0 w-40 sm:w-48 aspect-[4/3] rounded-lg border border-dashed border-border bg-[#F9FAFB] flex flex-col items-center justify-center gap-1.5 text-subtle">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/><path d="M8 5l1.5-2h5L16 5"/></svg>
+                  <span class="text-[10px] text-center leading-tight px-2">Screenshot coming soon</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-row scroll-reveal group">
+          <div class="py-7 flex gap-5 md:gap-8">
+            <div class="w-7 flex-shrink-0 pt-0.5 text-subtle">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
               </svg>
             </div>
@@ -657,7 +698,7 @@
           </div>
         </article>
 
-        <p class="scroll-reveal text-xs text-subtle leading-relaxed border-t border-border pt-8 pb-3">All three run on the same self-hosted n8n instance (Docker on DigitalOcean), with Cloudflare DNS routing subdomains and Caddy handling SSL. For the two NZ business systems, credentials, product data, and conversation logs are stored in Firebase Firestore.</p>
+        <p class="scroll-reveal text-xs text-subtle leading-relaxed border-t border-border pt-8 pb-3">All four workflows run on the same self-hosted n8n instance (Docker on DigitalOcean), with Cloudflare DNS routing and Caddy handling SSL. Credentials and conversation data are stored in Firebase Firestore. The POS reporting workflow additionally uses Python (openpyxl) via an Execute Command node for Excel template generation.</p>
 
         <p class="text-xs text-subtle pb-8">More automation case studies will be added as builds are completed.</p>
 
