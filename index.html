@@ -703,8 +703,9 @@
       <div class="border-t border-border pt-12 mb-6">
         <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink">Testimonials</h2>
       </div>
-      <!-- testimonials array — add objects here: { quote, name, role, date } -->
-      <div class="scroll-reveal py-14 text-center border border-dashed border-border rounded-xl">
+      <!-- TESTIMONIALS array is defined in the config script below and rendered into #testimonials-grid -->
+      <div id="testimonials-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      <div id="testimonials-empty" class="scroll-reveal py-14 text-center border border-dashed border-border rounded-xl">
         <p class="text-sm text-muted">Testimonials are on their way — coming as client projects wrap up.</p>
       </div>
     </section>
@@ -1068,6 +1069,15 @@
       { name: "SEO Essentials Certification",               issuer: "Semrush Academy", date: "", credentialUrl: "" },
       { name: "NSE 1–3 Network Security",                  issuer: "Fortinet", date: "", credentialUrl: "" },
     ];
+    // Client testimonials — `name` is a display label until real-name consent is confirmed, then swap it in directly
+    const TESTIMONIALS = [
+      {
+        quote: "As a sim racer, finding and refining mistakes is essentially the core of this hobby. Sometimes they aren't obvious, and you need external help to figure out what the mistakes are and how to fix them. SkillIssue Racing helped me on that exact process. Instead of spending hours identifying mistakes, it helped me find them in just 5 laps of a single practice session. It makes it easier to find those last tenths of a second, and it overall helps me become a better driver.",
+        name: "Sim Racer",
+        context: "iRacing — SkillIssue Racing Telemetry App",
+        date: "July 2026",
+      },
+    ];
     // ─────────────────────────────────────────────────────────────────────────────
 
     // Apply config
@@ -1096,6 +1106,28 @@
       `;
       certGrid.appendChild(card);
     });
+
+    // ─── TESTIMONIALS ────────────────────────────────────────────────────────────
+    const testimonialsGrid  = document.getElementById('testimonials-grid');
+    const testimonialsEmpty = document.getElementById('testimonials-empty');
+    if (TESTIMONIALS.length) {
+      testimonialsEmpty.classList.add('hidden');
+      TESTIMONIALS.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'scroll-reveal border border-border rounded-xl p-6 flex flex-col justify-between';
+        card.innerHTML = `
+          <p class="text-sm text-muted leading-relaxed mb-4">&ldquo;${t.quote}&rdquo;</p>
+          <div>
+            <p class="text-sm font-semibold text-ink">${t.name}</p>
+            <p class="text-xs text-subtle mb-1">${t.context}</p>
+            <p class="text-xs text-subtle">${t.date}</p>
+          </div>
+        `;
+        testimonialsGrid.appendChild(card);
+      });
+    } else {
+      testimonialsGrid.classList.add('hidden');
+    }
 
     // Mobile menu
     const hamburger  = document.getElementById('hamburger');
