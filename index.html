@@ -1065,13 +1065,15 @@
       testimonialsEmpty.classList.add('hidden');
       testimonialsGrid.className = TESTIMONIALS.length === 1
         ? 'grid grid-cols-1 gap-4 max-w-[480px] mx-auto'
-        : 'grid grid-cols-1 md:grid-cols-2 gap-4';
+        : 'flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-2 md:overflow-visible md:snap-none md:pb-0';
       TESTIMONIALS.forEach(t => {
         const words = t.name.trim().split(/\s+/);
         const initials = (words[0][0] + words[words.length - 1][0]).toUpperCase();
         const displayName = `${words[0]} ${words[words.length - 1][0].toUpperCase()}.`;
         const card = document.createElement('div');
-        card.className = 'scroll-reveal border border-border rounded-xl p-6 flex flex-col justify-between';
+        card.className = TESTIMONIALS.length === 1
+          ? 'scroll-reveal border border-border rounded-xl p-6 flex flex-col justify-between'
+          : 'scroll-reveal snap-start flex-shrink-0 w-[85%] sm:w-[60%] md:w-auto border border-border rounded-xl p-6 flex flex-col justify-between';
         card.innerHTML = `
           <p class="text-sm text-muted leading-relaxed">&ldquo;${t.quote}&rdquo;</p>
           <div class="flex items-center gap-3 mt-4">
