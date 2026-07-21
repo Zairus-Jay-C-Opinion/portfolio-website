@@ -137,6 +137,13 @@
       background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE;
     }
 
+    /* Subtle horizontal scrollbar for the testimonials row — thin, low-contrast, like mobile's native overlay scrollbar */
+    #testimonials-grid { scrollbar-width: thin; scrollbar-color: #D1D5DB transparent; }
+    #testimonials-grid::-webkit-scrollbar { height: 4px; }
+    #testimonials-grid::-webkit-scrollbar-track { background: transparent; }
+    #testimonials-grid::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 9999px; }
+    #testimonials-grid::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
       .fade-up { opacity: 1; animation: none; }
@@ -1065,7 +1072,7 @@
       testimonialsEmpty.classList.add('hidden');
       testimonialsGrid.className = TESTIMONIALS.length === 1
         ? 'grid grid-cols-1 gap-4 max-w-[480px] mx-auto'
-        : 'flex overflow-x-auto gap-4 pb-2 -mx-6 px-6';
+        : 'flex overflow-x-auto overflow-y-hidden gap-4 pb-2 -mx-6 px-6';
       const TESTIMONIAL_TRUNCATE_LENGTH = 480; // ~ standard card length; longer quotes get a Read more toggle
       TESTIMONIALS.forEach(t => {
         const words = t.name.trim().split(/\s+/);
@@ -1117,7 +1124,7 @@
       // ─── Auto-scroll: drifts the row right-to-left-and-back, pauses on touch/hold ──
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (TESTIMONIALS.length > 1 && !prefersReducedMotion) {
-        const SCROLL_SPEED_PX_PER_SEC = 30;
+        const SCROLL_SPEED_PX_PER_SEC = 45;
         let direction = 1;
         let paused = false;
         let inView = false;
