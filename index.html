@@ -1151,7 +1151,7 @@
 
         const pause = () => { clearTimeout(resumeTimer); paused = true; };
         const resume = () => { clearTimeout(resumeTimer); paused = false; };
-        const resumeAfterDelay = () => { clearTimeout(resumeTimer); resumeTimer = setTimeout(resume, 1200); };
+        const resumeAfterDelay = () => { pause(); clearTimeout(resumeTimer); resumeTimer = setTimeout(resume, 1200); };
 
         // Touch/mouse hold pauses immediately; releasing resumes immediately.
         ['pointerdown', 'touchstart'].forEach(evt => testimonialsGrid.addEventListener(evt, pause, { passive: true }));
@@ -1169,6 +1169,14 @@
         } else {
           inView = true;
         }
+
+        // Temporary debug hook — run window.__tsDebug() in the console to inspect live state.
+        window.__tsDebug = () => ({
+          paused, inView, direction, prefersReducedMotion,
+          scrollLeft: testimonialsGrid.scrollLeft,
+          scrollWidth: testimonialsGrid.scrollWidth,
+          clientWidth: testimonialsGrid.clientWidth,
+        });
       }
     } else {
       testimonialsGrid.classList.add('hidden');
