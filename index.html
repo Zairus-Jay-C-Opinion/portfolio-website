@@ -1017,7 +1017,7 @@
         date: "June 2026",
       },
       {
-        quote: "Month-end reporting used to take most of a day. I'd manually pull numbers from our POS, match them against our records, and still second-guess the final figures every time. Zairus built a system that pulls everything directly from our POS and generates the report in the exact format we already use. The first time it ran, it caught a discrepancy in our numbers we'd been missing for months, worth thousands of pesos we wouldn't have noticed on our own. Reporting now takes minutes instead of hours and I actually trust the numbers.",
+        quote: "Month-end reporting used to take most of a day — manually pulling numbers from our POS and matching them against our records. Zairus built a system that pulls everything directly from our POS and generates the report in the exact format we already use. The first time it ran, it caught a discrepancy worth thousands of pesos we'd been missing for months. Reporting now takes minutes instead of hours and I actually trust the numbers.",
         name: "Warren S.",
         context: "Papa Burgers — Automated POS Sales Reporting",
         date: "July 2026",
@@ -1066,6 +1066,7 @@
       testimonialsGrid.className = TESTIMONIALS.length === 1
         ? 'grid grid-cols-1 gap-4 max-w-[480px] mx-auto'
         : 'flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-2 md:overflow-visible md:snap-none md:pb-0';
+      const TESTIMONIAL_TRUNCATE_LENGTH = 480; // ~ standard card length; longer quotes get a Read more toggle
       TESTIMONIALS.forEach(t => {
         const words = t.name.trim().split(/\s+/);
         const initials = (words[0][0] + words[words.length - 1][0]).toUpperCase();
@@ -1074,8 +1075,19 @@
         card.className = TESTIMONIALS.length === 1
           ? 'scroll-reveal border border-border rounded-xl p-6 flex flex-col justify-between'
           : 'scroll-reveal snap-start flex-shrink-0 w-[85%] sm:w-[60%] md:w-auto border border-border rounded-xl p-6 flex flex-col justify-between';
+
+        const isLong = t.quote.length > TESTIMONIAL_TRUNCATE_LENGTH;
+        let shortQuote = t.quote;
+        if (isLong) {
+          const cut = t.quote.slice(0, TESTIMONIAL_TRUNCATE_LENGTH);
+          shortQuote = cut.slice(0, cut.lastIndexOf(' ')) + '…';
+        }
+
         card.innerHTML = `
-          <p class="text-sm text-muted leading-relaxed">&ldquo;${t.quote}&rdquo;</p>
+          <div>
+            <p class="testimonial-quote text-sm text-muted leading-relaxed">&ldquo;${isLong ? shortQuote : t.quote}&rdquo;</p>
+            ${isLong ? '<button type="button" class="testimonial-toggle text-xs text-accent hover:underline underline-offset-2 mt-2" aria-expanded="false">Read more</button>' : ''}
+          </div>
           <div class="flex items-center gap-3 mt-4">
             <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFFFFF; color: #0F0F0F; border: 1px solid #0F0F0F; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: inherit;">${initials}</div>
             <div>
@@ -1085,6 +1097,20 @@
             </div>
           </div>
         `;
+
+        if (isLong) {
+          const quoteEl  = card.querySelector('.testimonial-quote');
+          const toggleEl = card.querySelector('.testimonial-toggle');
+          toggleEl.addEventListener('click', () => {
+            const expanded = toggleEl.getAttribute('aria-expanded') === 'true';
+            quoteEl.innerHTML = expanded
+              ? `&ldquo;${shortQuote}&rdquo;`
+              : `&ldquo;${t.quote}&rdquo;`;
+            toggleEl.textContent = expanded ? 'Read more' : 'Show less';
+            toggleEl.setAttribute('aria-expanded', String(!expanded));
+          });
+        }
+
         testimonialsGrid.appendChild(card);
       });
     } else {
