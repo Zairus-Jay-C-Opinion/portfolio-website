@@ -137,6 +137,11 @@
       background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE;
     }
 
+    /* Force instant (non-smooth) scrolling: the JS auto-scroll writes scrollLeft every frame, and
+       browsers that honor scroll-behavior:smooth on direct property writes will cancel/restart a
+       smooth-scroll animation on every single frame, so it visually never gets anywhere. */
+    #testimonials-grid { scroll-behavior: auto !important; }
+
     /* Subtle horizontal scrollbar for the testimonials row — thin, low-contrast, like mobile's native overlay scrollbar */
     #testimonials-grid { scrollbar-width: thin; scrollbar-color: #D1D5DB transparent; }
     #testimonials-grid::-webkit-scrollbar { height: 4px; }
@@ -1068,6 +1073,7 @@
     // ─── TESTIMONIALS ────────────────────────────────────────────────────────────
     const testimonialsGrid  = document.getElementById('testimonials-grid');
     const testimonialsEmpty = document.getElementById('testimonials-empty');
+    testimonialsGrid.style.scrollBehavior = 'auto'; // belt-and-suspenders vs. the CSS !important rule
     if (TESTIMONIALS.length) {
       testimonialsEmpty.classList.add('hidden');
       testimonialsGrid.className = TESTIMONIALS.length === 1
