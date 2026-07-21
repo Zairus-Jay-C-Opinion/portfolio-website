@@ -1065,7 +1065,7 @@
       testimonialsEmpty.classList.add('hidden');
       testimonialsGrid.className = TESTIMONIALS.length === 1
         ? 'grid grid-cols-1 gap-4 max-w-[480px] mx-auto'
-        : 'flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-2 md:overflow-visible md:snap-none md:pb-0';
+        : 'flex overflow-x-auto gap-4 pb-2 -mx-6 px-6';
       const TESTIMONIAL_TRUNCATE_LENGTH = 480; // ~ standard card length; longer quotes get a Read more toggle
       TESTIMONIALS.forEach(t => {
         const words = t.name.trim().split(/\s+/);
@@ -1074,7 +1074,7 @@
         const card = document.createElement('div');
         card.className = TESTIMONIALS.length === 1
           ? 'scroll-reveal border border-border rounded-xl p-6 flex flex-col justify-between'
-          : 'scroll-reveal snap-start flex-shrink-0 w-[85%] sm:w-[60%] md:w-auto border border-border rounded-xl p-6 flex flex-col justify-between';
+          : 'scroll-reveal flex-shrink-0 w-[85%] sm:w-[60%] md:w-[380px] border border-border rounded-xl p-6 flex flex-col justify-between';
 
         const isLong = t.quote.length > TESTIMONIAL_TRUNCATE_LENGTH;
         let shortQuote = t.quote;
@@ -1113,6 +1113,54 @@
 
         testimonialsGrid.appendChild(card);
       });
+
+      // ─── Auto-scroll: drifts the row right-to-left-and-back, pauses on touch/hold ──
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (TESTIMONIALS.length > 1 && !prefersReducedMotion) {
+        const SCROLL_SPEED_PX_PER_SEC = 30;
+        let direction = 1;
+        let paused = false;
+        let inView = false;
+        let lastTime = null;
+        let resumeTimer = null;
+
+        function tick(timestamp) {
+          if (lastTime === null) lastTime = timestamp;
+          const deltaSec = (timestamp - lastTime) / 1000;
+          lastTime = timestamp;
+          if (!paused && inView) {
+            const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+            if (maxScroll > 1) {
+              testimonialsGrid.scrollLeft += direction * SCROLL_SPEED_PX_PER_SEC * deltaSec;
+              if (testimonialsGrid.scrollLeft >= maxScroll) { testimonialsGrid.scrollLeft = maxScroll; direction = -1; }
+              else if (testimonialsGrid.scrollLeft <= 0) { testimonialsGrid.scrollLeft = 0; direction = 1; }
+            }
+          }
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+
+        const pause = () => { clearTimeout(resumeTimer); paused = true; };
+        const resume = () => { clearTimeout(resumeTimer); paused = false; };
+        const resumeAfterDelay = () => { clearTimeout(resumeTimer); resumeTimer = setTimeout(resume, 1200); };
+
+        // Touch/mouse hold pauses immediately; releasing resumes immediately.
+        ['pointerdown', 'touchstart'].forEach(evt => testimonialsGrid.addEventListener(evt, pause, { passive: true }));
+        ['pointerup', 'pointercancel', 'touchend', 'mouseleave'].forEach(evt => testimonialsGrid.addEventListener(evt, resume, { passive: true }));
+        // Trackpad/scrollwheel: pause during the scroll burst, resume shortly after it settles.
+        testimonialsGrid.addEventListener('wheel', resumeAfterDelay, { passive: true });
+
+        document.addEventListener('visibilitychange', () => {
+          paused = document.hidden;
+        });
+
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(entries => { inView = entries[0].isIntersecting; }, { threshold: 0.2 })
+            .observe(testimonialsGrid);
+        } else {
+          inView = true;
+        }
+      }
     } else {
       testimonialsGrid.classList.add('hidden');
     }
