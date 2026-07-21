@@ -1136,11 +1136,13 @@
           const deltaSec = (timestamp - lastTime) / 1000;
           lastTime = timestamp;
           if (!paused && inView) {
+            // scrollWidth/clientWidth are rounded integers but scrollLeft can be fractional (sub-pixel
+            // layout), so the true max is sometimes just under the computed integer — hence the tolerance.
             const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
             if (maxScroll > 1) {
               testimonialsGrid.scrollLeft += direction * SCROLL_SPEED_PX_PER_SEC * deltaSec;
-              if (testimonialsGrid.scrollLeft >= maxScroll) { testimonialsGrid.scrollLeft = maxScroll; direction = -1; }
-              else if (testimonialsGrid.scrollLeft <= 0) { testimonialsGrid.scrollLeft = 0; direction = 1; }
+              if (direction > 0 && testimonialsGrid.scrollLeft >= maxScroll - 2) { direction = -1; }
+              else if (direction < 0 && testimonialsGrid.scrollLeft <= 2) { direction = 1; }
             }
           }
           requestAnimationFrame(tick);
