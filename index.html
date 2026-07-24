@@ -321,7 +321,7 @@
             </div>
             <div class="scroll-reveal">
               <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">APIs & Services</p>
-              <p class="text-sm text-muted leading-relaxed">Finnhub, Gemini, Anthropic, Stripe, Resend, Upstash</p>
+              <p class="text-sm text-muted leading-relaxed">Finnhub, Gemini, Anthropic, Stripe, Resend, Upstash, Apify, Airtable, Slack API</p>
             </div>
             <div class="scroll-reveal">
               <p class="text-xs text-subtle uppercase tracking-widest mb-1.5">AI Tools</p>
@@ -636,7 +636,25 @@
           </div>
         </article>
 
-        <p class="scroll-reveal text-xs text-subtle leading-relaxed border-t border-border pt-8 pb-3">All four workflows run on the same self-hosted n8n instance (Docker on DigitalOcean), with Cloudflare DNS routing and Caddy handling SSL. Credentials and conversation data are stored in Firebase Firestore. The POS reporting workflow additionally uses Python (openpyxl) via an Execute Command node for Excel template generation.</p>
+        <article class="project-row scroll-reveal group">
+          <div class="py-7 flex gap-5 md:gap-8">
+            <div class="w-7 flex-shrink-0 pt-0.5 text-subtle">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
+              </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-1">
+                <h3 class="text-sm font-semibold text-ink group-hover:text-accent transition-colors duration-200">Job Application Tracker</h3>
+              </div>
+              <p class="text-xs text-subtle mb-3">Built for my own job search</p>
+              <p class="text-sm text-muted leading-relaxed mb-3">Manually scanning OnlineJobs.ph every day for relevant postings was slow, and most listings didn't match my actual stack. This n8n workflow automates the triage: an Apify scraper pulls fresh postings daily, each one is scored for fit against my candidate profile using Gemini in an AI-agent-style scoring pattern (with prompt-injection-resistant framing, since job postings are untrusted scraped content), qualifying matches get written into an Airtable pipeline tracker, and a Slack digest notifies me of anything worth a look. It runs unattended every day, triages roughly 30 postings per run, and only surfaces matches scoring 7 or higher — turning a daily manual scan into a two-minute Slack check.</p>
+              <p class="text-xs text-subtle leading-relaxed">n8n, Apify, Google Gemini API, Airtable, Slack API</p>
+            </div>
+          </div>
+        </article>
+
+        <p class="scroll-reveal text-xs text-subtle leading-relaxed border-t border-border pt-8 pb-3">The four client and site workflows above run on the same self-hosted n8n instance (Docker on DigitalOcean), with Cloudflare DNS routing and Caddy handling SSL. Credentials and conversation data are stored in Firebase Firestore. The POS reporting workflow additionally uses Python (openpyxl) via an Execute Command node for Excel template generation.</p>
 
         <p class="text-xs text-subtle pb-8">More automation case studies will be added as builds are completed.</p>
 
