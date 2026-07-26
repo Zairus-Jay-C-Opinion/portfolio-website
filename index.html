@@ -342,7 +342,7 @@
     </section>
 
     <!-- CERTIFICATIONS — not in nav, discoverable by scroll between Skills and Contact -->
-    <section id="certifications" class="pb-16 max-w-5xl mx-auto px-6" hidden>
+    <section id="certifications" class="pb-16 max-w-5xl mx-auto px-6">
       <div class="border-t border-border pt-12 mb-8">
         <h2 class="scroll-reveal text-2xl font-bold tracking-tight text-ink mb-2">Certifications</h2>
         <p class="scroll-reveal text-sm text-muted">In progress — updated as each one is completed.</p>
@@ -1024,13 +1024,12 @@
     ];
     // Certifications in progress — fill in `date` + `credentialUrl` once each is earned
     const CERTIFICATIONS = [
-      { name: "ChatGPT Prompt Engineering for Developers", issuer: "DeepLearning.AI", date: "", credentialUrl: "" },
-      { name: "Building Systems with the ChatGPT API",     issuer: "DeepLearning.AI", date: "", credentialUrl: "" },
-      { name: "AI Agents in LangGraph",                    issuer: "DeepLearning.AI", date: "", credentialUrl: "" },
-      { name: "SEO Certification",                         issuer: "HubSpot Academy", date: "", credentialUrl: "" },
-      { name: "Google Analytics Certification",            issuer: "Google Skillshop", date: "", credentialUrl: "" },
-      { name: "SEO Essentials Certification",               issuer: "Semrush Academy", date: "", credentialUrl: "" },
-      { name: "NSE 1–3 Network Security",                  issuer: "Fortinet", date: "", credentialUrl: "" },
+      {
+        name: "AI Fundamentals: Language and Vision in AI",
+        issuer: "IBM SkillsBuild · Cisco Networking Academy",
+        date: "July 2026",
+        credentialUrl: "https://www.credly.com/badges/a9b18111-b239-40aa-b34c-7edc21dbdac3/public_url"
+      }
     ];
     // Client testimonials — `name` is a display label until real-name consent is confirmed, then swap it in directly
     const TESTIMONIALS = [
