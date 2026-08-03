@@ -81,9 +81,41 @@
       color-scheme: dark;
     }
 
-    /* Everything cross-fades when the .dark class flips, instead of hard-cutting. */
+    /* Fallback cross-fade for browsers without the View Transitions API — without this
+       the theme would hard-cut on those browsers. */
     *, *::before, *::after {
       transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* ─── THEME WIPE ───────────────────────────────────────────────────────────
+       document.startViewTransition() snapshots the page before and after the class
+       flip. We hold the OLD snapshot still and sweep the NEW one across it from the
+       left, so the incoming theme reads as a single sheet engulfing the screen
+       rather than a few hundred elements fading independently. */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+      /* The UA default is plus-lighter, meant for cross-fades — it makes the two
+         opaque snapshots blow out to white where they overlap. */
+      mix-blend-mode: normal;
+    }
+    ::view-transition-old(root) { z-index: 0; }
+    ::view-transition-new(root) {
+      z-index: 1;
+      animation: theme-wipe 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    /* inset(top right bottom left): a right inset of 100% collapses the new snapshot
+       to a zero-width sliver pinned at the left edge, which then opens rightward. */
+    @keyframes theme-wipe {
+      from { clip-path: inset(0 100% 0 0); }
+      to   { clip-path: inset(0 0 0 0); }
+    }
+
+    /* While the wipe runs, kill the per-element color transitions above — otherwise
+       every element is still mid-fade inside the new snapshot and the revealed strip
+       looks washed out instead of fully themed. */
+    html.vt-active *, html.vt-active *::before, html.vt-active *::after {
+      transition: none !important;
     }
 
     .img-wrap { position: relative; overflow: hidden; background: transparent; }
@@ -1308,10 +1340,29 @@
     }
     updateThemeIcon();
 
-    themeToggle.addEventListener('click', () => {
+    function applyTheme() {
       htmlEl.classList.toggle('dark');
       localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
       updateThemeIcon();
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // No View Transitions support (Firefox at time of writing) or motion-sensitive
+      // user: swap straight over and let the CSS cross-fade above handle it.
+      if (reduceMotion || !document.startViewTransition) { applyTheme(); return; }
+
+      htmlEl.classList.add('vt-active');
+      const transition = document.startViewTransition(applyTheme);
+      // Clear on both outcomes — rapid double-clicks skip the in-flight transition and
+      // reject `finished`. Handling only the success path would leave `vt-active` stuck
+      // on, permanently killing every color transition on the page (and `.finally()`
+      // would re-throw the rejection as an unhandled promise error).
+      const done = () => htmlEl.classList.remove('vt-active');
+      transition.finished.then(done, done);
+      // Clicking again mid-wipe skips the in-flight transition, which rejects its
+      // `ready` promise with AbortError. Harmless, but unhandled it spams the console.
+      transition.ready.catch(() => {});
     });
 
     // Mobile menu
