@@ -87,29 +87,26 @@
       transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     }
 
-    /* ─── THEME WIPE ───────────────────────────────────────────────────────────
+    /* ─── THEME REVEAL ─────────────────────────────────────────────────────────
        document.startViewTransition() snapshots the page before and after the class
-       flip. We hold the OLD snapshot still and sweep the NEW one across it from the
-       left, so the incoming theme reads as a single sheet engulfing the screen
-       rather than a few hundred elements fading independently. */
+       flip. We hold the OLD snapshot still and expand the NEW one over it as a
+       circle growing out of the toggle button, so the incoming theme reads as a
+       single sheet flooding the screen from the point of interaction rather than a
+       few hundred elements fading independently.
+
+       Only the static setup lives here — the circle itself is animated from JS,
+       because its origin (the button's position) and its final radius (distance to
+       the furthest viewport corner) aren't knowable to a stylesheet. */
     ::view-transition-old(root),
     ::view-transition-new(root) {
+      /* Kill the UA's default cross-fade so it doesn't run alongside our reveal. */
       animation: none;
       /* The UA default is plus-lighter, meant for cross-fades — it makes the two
          opaque snapshots blow out to white where they overlap. */
       mix-blend-mode: normal;
     }
     ::view-transition-old(root) { z-index: 0; }
-    ::view-transition-new(root) {
-      z-index: 1;
-      animation: theme-wipe 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-    }
-    /* inset(top right bottom left): a right inset of 100% collapses the new snapshot
-       to a zero-width sliver pinned at the left edge, which then opens rightward. */
-    @keyframes theme-wipe {
-      from { clip-path: inset(0 100% 0 0); }
-      to   { clip-path: inset(0 0 0 0); }
-    }
+    ::view-transition-new(root) { z-index: 1; }
 
     /* While the wipe runs, kill the per-element color transitions above — otherwise
        every element is still mid-fade inside the new snapshot and the revealed strip
@@ -1352,17 +1349,45 @@
       // user: swap straight over and let the CSS cross-fade above handle it.
       if (reduceMotion || !document.startViewTransition) { applyTheme(); return; }
 
+      // Measure the button now, before the transition freezes the page. Center of the
+      // toggle in viewport coordinates — which is also the coordinate space of the
+      // ::view-transition-new(root) pseudo-element, so these map across directly.
+      const rect = themeToggle.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + rect.height / 2;
+      // Reach the furthest corner, or the circle would stop short of covering the
+      // screen: take the longer span on each axis, then the hypotenuse of those.
+      const radius = Math.hypot(
+        Math.max(originX, window.innerWidth  - originX),
+        Math.max(originY, window.innerHeight - originY)
+      );
+
       htmlEl.classList.add('vt-active');
       const transition = document.startViewTransition(applyTheme);
-      // Clear on both outcomes — rapid double-clicks skip the in-flight transition and
-      // reject `finished`. Handling only the success path would leave `vt-active` stuck
-      // on, permanently killing every color transition on the page (and `.finally()`
-      // would re-throw the rejection as an unhandled promise error).
+
+      // Clear on both outcomes — rapid clicks skip the in-flight transition and reject
+      // `finished`. Handling only the success path would leave `vt-active` stuck on,
+      // permanently killing every color transition on the page (and `.finally()` would
+      // re-throw the rejection as an unhandled promise error).
       const done = () => htmlEl.classList.remove('vt-active');
       transition.finished.then(done, done);
-      // Clicking again mid-wipe skips the in-flight transition, which rejects its
-      // `ready` promise with AbortError. Harmless, but unhandled it spams the console.
-      transition.ready.catch(() => {});
+
+      // `ready` resolves once the snapshots exist and the pseudo-elements are
+      // animatable. It rejects with AbortError if a later click skips this
+      // transition — harmless, but unhandled it spams the console.
+      transition.ready.then(() => {
+        htmlEl.animate(
+          { clipPath: [
+              `circle(0px at ${originX}px ${originY}px)`,
+              `circle(${radius}px at ${originX}px ${originY}px)`
+            ] },
+          {
+            duration: 600,
+            easing: 'cubic-bezier(0.65, 0, 0.35, 1)',
+            pseudoElement: '::view-transition-new(root)'
+          }
+        );
+      }).catch(() => {});
     });
 
     // Mobile menu
