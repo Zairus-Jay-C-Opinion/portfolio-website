@@ -285,8 +285,15 @@
           <a href="#services"  class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Services</a>
           <a href="#contact"   class="nav-link text-sm text-muted hover:text-ink transition-colors duration-200">Contact</a>
         </div>
+        <!-- Icon is swapped by JS. Starts as the moon because the site defaults to
+             light; drawn as SVG rather than ☀/☾ so mobile doesn't substitute its
+             emoji font and paint the sun yellow. -->
         <button id="theme-toggle" type="button" title="Toggle dark mode" aria-label="Toggle dark mode"
-                class="min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 md:w-8 md:h-8 flex items-center justify-center rounded-lg text-base leading-none text-muted hover:text-ink transition-colors duration-200">☾</button>
+                class="min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 md:w-8 md:h-8 flex items-center justify-center rounded-lg text-muted hover:text-ink transition-colors duration-200">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
         <button id="hamburger" class="md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center text-muted" aria-label="Open menu">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <rect y="3.5"  width="20" height="1.5" rx="0.75" fill="currentColor"/>
@@ -1329,10 +1336,21 @@
     const themeToggle = document.getElementById('theme-toggle');
     const htmlEl      = document.documentElement;
 
+    // Inline SVG, not the ☀/☾ characters. Those are emoji-presentation codepoints:
+    // desktop browsers fall back to a monochrome text glyph, but iOS and Android
+    // resolve them through the system emoji font and render a yellow sun. Drawing
+    // them ourselves makes the icon identical everywhere and lets it inherit
+    // currentColor, so text-muted / hover:text-ink / dark mode all still apply.
+    const ICON_MOON = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+    const ICON_SUN  = '<circle cx="12" cy="12" r="4.25"/>' + [
+      [12, 1.5, 12, 3.5], [12, 20.5, 12, 22.5], [1.5, 12, 3.5, 12], [20.5, 12, 22.5, 12],
+      [4.5, 4.5, 5.9, 5.9], [18.1, 18.1, 19.5, 19.5], [4.5, 19.5, 5.9, 18.1], [18.1, 5.9, 19.5, 4.5]
+    ].map(([x1, y1, x2, y2]) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`).join('');
+
     function updateThemeIcon() {
       const isDark = htmlEl.classList.contains('dark');
       // Shows the mode you'd switch *to*, which is the convention users expect.
-      themeToggle.textContent = isDark ? '☀' : '☾';
+      themeToggle.querySelector('svg').innerHTML = isDark ? ICON_SUN : ICON_MOON;
       themeToggle.setAttribute('aria-pressed', String(isDark));
     }
     updateThemeIcon();
@@ -1343,24 +1361,85 @@
       updateThemeIcon();
     }
 
-    themeToggle.addEventListener('click', () => {
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      // No View Transitions support (Firefox at time of writing) or motion-sensitive
-      // user: swap straight over and let the CSS cross-fade above handle it.
-      if (reduceMotion || !document.startViewTransition) { applyTheme(); return; }
+    const REVEAL_MS   = 600;
+    const REVEAL_EASE = 'cubic-bezier(0.65, 0, 0.35, 1)';
 
-      // Measure the button now, before the transition freezes the page. Center of the
-      // toggle in viewport coordinates — which is also the coordinate space of the
-      // ::view-transition-new(root) pseudo-element, so these map across directly.
+    // Origin + radius for the circle, measured fresh on every click because the
+    // button moves and the viewport resizes (phone rotation, URL bar sliding away).
+    function revealGeometry() {
       const rect = themeToggle.getBoundingClientRect();
       const originX = rect.left + rect.width / 2;
       const originY = rect.top + rect.height / 2;
+      // On mobile, innerHeight tracks the *visual* viewport, which shrinks while the
+      // URL bar is showing — but the snapshot we're clipping covers the full layout
+      // viewport. Sizing off innerHeight alone leaves an unrevealed band at the
+      // bottom of the screen, so take whichever measure is larger and over-reach.
+      const vw = Math.max(window.innerWidth,  document.documentElement.clientWidth);
+      const vh = Math.max(window.innerHeight, document.documentElement.clientHeight);
       // Reach the furthest corner, or the circle would stop short of covering the
       // screen: take the longer span on each axis, then the hypotenuse of those.
-      const radius = Math.hypot(
-        Math.max(originX, window.innerWidth  - originX),
-        Math.max(originY, window.innerHeight - originY)
+      const radius = Math.hypot(Math.max(originX, vw - originX), Math.max(originY, vh - originY));
+      return { originX, originY, radius };
+    }
+
+    const circleAt = (r, x, y) => `circle(${r}px at ${x}px ${y}px)`;
+
+    // Fallback path for browsers without View Transitions — Safari before 18, which
+    // is most older iPhones, plus Firefox. Same gesture, different mechanism: paint a
+    // sheet of the incoming canvas color, grow it out of the button to cover the
+    // screen, flip the theme underneath it, then fade the sheet off. The reveal is a
+    // flat color rather than the real new page, but the motion reads identically.
+    let fallbackInFlight = null;
+
+    function fallbackReveal() {
+      // A second tap mid-reveal would otherwise stack sheets, and the new one would
+      // read the theme it's switching *to* off a class that hasn't flipped yet. So
+      // the newest tap wins outright: cancel + detach the previous sheet.
+      //
+      // Both have to happen here, synchronously. cancel() alone rejects
+      // grow.finished and the .catch chain does remove the node, but only a couple
+      // of microtasks later — and a cancelled animation drops its fill:forwards
+      // clip-path immediately, so in between the sheet is an *unclipped* opaque
+      // rectangle over the whole viewport. Removing it in the same tick means that
+      // state never survives to a paint.
+      if (fallbackInFlight) {
+        fallbackInFlight.sheet.remove();
+        fallbackInFlight.grow.cancel();
+      }
+
+      const { originX, originY, radius } = revealGeometry();
+      const nextIsDark = !htmlEl.classList.contains('dark');
+      const sheet = document.createElement('div');
+      sheet.style.cssText = 'position:fixed;inset:0;z-index:9999;pointer-events:none;' +
+                            'background:' + (nextIsDark ? '#111111' : '#FFFFFF');
+      document.body.appendChild(sheet);
+
+      const grow = sheet.animate(
+        { clipPath: [circleAt(0, originX, originY), circleAt(radius, originX, originY)] },
+        { duration: REVEAL_MS, easing: REVEAL_EASE, fill: 'forwards' }
       );
+
+      const entry = { grow, sheet };
+      fallbackInFlight = entry;
+
+      grow.finished.then(() => {
+        applyTheme();
+        return sheet.animate({ opacity: [1, 0] }, { duration: 180, easing: 'ease-out' }).finished;
+      }).catch(() => {}).then(() => {
+        sheet.remove();
+        if (fallbackInFlight === entry) fallbackInFlight = null;
+      });
+    }
+
+    themeToggle.addEventListener('click', () => {
+      // Motion-sensitive user: swap straight over, no reveal at all.
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { applyTheme(); return; }
+      if (!document.startViewTransition) { fallbackReveal(); return; }
+
+      // Measure now, before startViewTransition() freezes the page. These are
+      // viewport coordinates, which is also the coordinate space of the
+      // ::view-transition-new(root) pseudo-element, so they map across directly.
+      const { originX, originY, radius } = revealGeometry();
 
       htmlEl.classList.add('vt-active');
       const transition = document.startViewTransition(applyTheme);
@@ -1377,15 +1456,8 @@
       // transition — harmless, but unhandled it spams the console.
       transition.ready.then(() => {
         htmlEl.animate(
-          { clipPath: [
-              `circle(0px at ${originX}px ${originY}px)`,
-              `circle(${radius}px at ${originX}px ${originY}px)`
-            ] },
-          {
-            duration: 600,
-            easing: 'cubic-bezier(0.65, 0, 0.35, 1)',
-            pseudoElement: '::view-transition-new(root)'
-          }
+          { clipPath: [circleAt(0, originX, originY), circleAt(radius, originX, originY)] },
+          { duration: REVEAL_MS, easing: REVEAL_EASE, pseudoElement: '::view-transition-new(root)' }
         );
       }).catch(() => {});
     });
